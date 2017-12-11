@@ -49,9 +49,9 @@ The module.xml for the base sentry jar is as follows:
     </resources>
 
     <dependencies>
-        <module name="com.fasterxml.jackson.core.jackson-core"/>
-		<module name="org.slf4j"/>
-		<module name="javax.api"/>
+    	<module name="com.fasterxml.jackson.core.jackson-core"/>
+    	<module name="org.slf4j"/>
+    	<module name="javax.api"/>
     </dependencies>
 </module>
 ```
@@ -67,8 +67,8 @@ And for the sentry-log4j;
     </resources>
 
     <dependencies>
-        <module name="io.sentry"/>
-		<module name="org.apache.log4j"/>
+    	<module name="io.sentry"/>
+    	<module name="org.apache.log4j"/>
     </dependencies>
 </module>
 ```
