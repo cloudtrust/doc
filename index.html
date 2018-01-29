@@ -7,7 +7,7 @@
         <title>Introduction · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.2">
+        <meta name="generator" content="GitBook 3.2.3">
         
         
         
@@ -57,6 +57,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="chapter-sentry/" />
+    
     
 
     </head>
@@ -95,6 +97,193 @@
                 </a>
             
 
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="chapter-sentry/">
+            
+                <a href="chapter-sentry/">
+            
+                    
+                    Keycloak Sentry integration
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="chapter-storage/">
+            
+                <a href="chapter-storage/">
+            
+                    
+                    Keycloak Storage
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="chapter-storage/create_database.html">
+            
+                <a href="chapter-storage/create_database.html">
+            
+                    
+                    Creating the database structure in Keycloak
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="chapter-storage/cockroachdb.html">
+            
+                <a href="chapter-storage/cockroachdb.html">
+            
+                    
+                    CockroachDB
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="chapter-protocol/">
+            
+                <a href="chapter-protocol/">
+            
+                    
+                    Keycloak Protocol
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="chapter-protocol/general_principals.html">
+            
+                <a href="chapter-protocol/general_principals.html">
+            
+                    
+                    General principals
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="chapter-protocol/ws-fed.html">
+            
+                <a href="chapter-protocol/ws-fed.html">
+            
+                    
+                    Implementation of WS-FED
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="chapter-deploy/README.md">
+            
+                <span>
+            
+                    
+                    Deployment
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="chapter-deploy/Introduction.html">
+            
+                <a href="chapter-deploy/Introduction.html">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="chapter-deploy/Docker.html">
+            
+                <a href="chapter-deploy/Docker.html">
+            
+                    
+                    Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="chapter-deploy/Kubernetes.html">
+            
+                <a href="chapter-deploy/Kubernetes.html">
+            
+                    
+                    Kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="chapter-deploy/Systemd_In_Kubernetes.html">
+            
+                <a href="chapter-deploy/Systemd_In_Kubernetes.html">
+            
+                    
+                    Systemd In Kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="chapter-deploy/Ansible.html">
+            
+                <a href="chapter-deploy/Ansible.html">
+            
+                    
+                    Ansible
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
             
         </li>
     
@@ -144,6 +333,31 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="doc">doc</h1>
+<p>Cloud trust documentation</p>
+<h1 id="install-the-plugins-and-build-the-static-site">install the plugins and build the static site</h1>
+<p>npm install -g gitbook-cli</p>
+<h1 id="install-tools-you-need">Install tools you need</h1>
+<p>gitbook install</p>
+<h1 id="do-your-struff">Do your struff</h1>
+<h1 id="build">Build</h1>
+<p>gitbook build</p>
+<h1 id="checkout-to-the-gh-pages-branch">checkout to the gh-pages branch</h1>
+<p>git checkout gh-pages</p>
+<h1 id="pull-the-latest-updates">pull the latest updates</h1>
+<p>git pull origin gh-pages --rebase</p>
+<h1 id="copy-the-static-site-files-into-the-current-directory">copy the static site files into the current directory.</h1>
+<p>cp -R _book/* .</p>
+<h1 id="remove-nodemodules-and-book-directory">remove &apos;node_modules&apos; and &apos;_book&apos; directory</h1>
+<p>git clean -fx node_modules
+git clean -fx _book</p>
+<h1 id="add-all-files">add all files</h1>
+<p>git add .</p>
+<h1 id="commit">commit</h1>
+<p>git commit -a -m &quot;Update docs&quot;</p>
+<h1 id="push-to-the-origin">push to the origin</h1>
+<p>git push origin gh-pages</p>
+<h1 id="checkout-to-the-master-branch">checkout to the master branch</h1>
+<p>git checkout master</p>
 
                                 
                                 </section>
@@ -172,6 +386,10 @@
             
                 
                 
+                <a href="chapter-sentry/" class="navigation navigation-next navigation-unique" aria-label="Next page: Keycloak Sentry integration">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
             
         
     </div>
@@ -179,7 +397,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2017-06-13T06:00:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-13T06:05:11.777Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Keycloak Sentry integration","level":"1.2","depth":1,"path":"chapter-sentry/README.md","ref":"chapter-sentry/README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2018-01-24T07:33:52.185Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-01-29T15:07:49.119Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

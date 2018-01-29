@@ -1,0 +1,474 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Kubernetes · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="Systemd_In_Kubernetes.html" />
+    
+    
+    <link rel="prev" href="Docker.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../chapter-sentry/">
+            
+                <a href="../chapter-sentry/">
+            
+                    
+                    Keycloak Sentry integration
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../chapter-storage/">
+            
+                <a href="../chapter-storage/">
+            
+                    
+                    Keycloak Storage
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../chapter-storage/create_database.html">
+            
+                <a href="../chapter-storage/create_database.html">
+            
+                    
+                    Creating the database structure in Keycloak
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../chapter-storage/cockroachdb.html">
+            
+                <a href="../chapter-storage/cockroachdb.html">
+            
+                    
+                    CockroachDB
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../chapter-protocol/">
+            
+                <a href="../chapter-protocol/">
+            
+                    
+                    Keycloak Protocol
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../chapter-protocol/general_principals.html">
+            
+                <a href="../chapter-protocol/general_principals.html">
+            
+                    
+                    General principals
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../chapter-protocol/ws-fed.html">
+            
+                <a href="../chapter-protocol/ws-fed.html">
+            
+                    
+                    Implementation of WS-FED
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="README.md">
+            
+                <span>
+            
+                    
+                    Deployment
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="Introduction.html">
+            
+                <a href="Introduction.html">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="Docker.html">
+            
+                <a href="Docker.html">
+            
+                    
+                    Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5.3" data-path="Kubernetes.html">
+            
+                <a href="Kubernetes.html">
+            
+                    
+                    Kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="Systemd_In_Kubernetes.html">
+            
+                <a href="Systemd_In_Kubernetes.html">
+            
+                    
+                    Systemd In Kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="Ansible.html">
+            
+                <a href="Ansible.html">
+            
+                    
+                    Ansible
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Kubernetes</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="kubernetes-in-cloudtrust">Kubernetes in Cloudtrust</h1>
+<p>Kubernetes&apos; purpose is to define the cluster&apos;s desired state through yaml files, and then apply those files.
+Essentially, this means specifying what containers to run, in how many replicas, where (to some extent). It allows us to treat a bunch of machines as a single one.
+Kubernetes isn&apos;t inherently complex, but it has many different parts and a lot of small behaviour quirks, and it can feel overwhelming to a beginner. This section attempts to demistify all of the fluff of kubernetes that cloudtrust uses.</p>
+<h2 id="defining-resources">Defining resources</h2>
+<p>Kubernetes understands all resource definition through yaml files. For a complete reference refer to : <a href="https://v1-7.docs.kubernetes.io/docs/api-reference/v1.7/" target="_blank">https://v1-7.docs.kubernetes.io/docs/api-reference/v1.7/</a></p>
+<h2 id="pods">Pods</h2>
+<p>A Pod in kubernetes is simply a set of containers that share a few namespaces. Namely Network and PID by default.</p>
+<aside class="notice">
+In our case, where we run systemd in our containers, PID namespace sharing has to be disabled!! This is due to the fact that kubernetes runs a `pause` initialization container to initialize the common namespace for containers in the pod. This `pause` program gets PID 1 and systemd refuses to run!
+</aside>
+Pods aren&apos;t meant to be manipulated directly. Just like we used to run container by `start`ing them in a systemd unit file, we want kubernetes to restart pods when they fail.
+So pods aren&apos;t used in cloudtrust, except for one category of pods.
+
+### Static Pods
+
+Remember that kubernetes has 5 components that run on a master node, and 2 that run on every slave. Among those, the kubelet and kube-proxy *have* to run on the host, as one runs containers and the other manages iptables rules. The 3 master components, however, can run inside containers. But running containers that won&apos;t be managed by kubernetes among a whole ecosystem of containers can be foolish (To understand that, simply run a `docker ps` on a kubernetes node, and try to find the containers you&apos;ve run by hand). To this end, kubernetes provides a mechanism to run static pods. Static pods are kubernetes pods that are launched by the kubelet without interaction with the Apiserver. To define static pods, we have to provide a directory that the kubelet watches for changes and write manifests inside. This is a great way to run master components (apiserver, scheduler, controller-manager, etcd...) in containers and see them through kubernetes.
+
+## Deployments
+
+Kubernetes pods are ephemeral and not very useful on their own, as they can&apos;t scale up or down easily. The answer to this problem is deployments. Deployments allow us to specify a number of expected replicas, and come with nice rolling update features. When a deployment is created, it automatically spawns a replicaset controller, which specifies the desired state in the controller manager. This will ensure that X replicas are always running (if possible).
+
+## Service
+
+Once containers are spawned, it&apos;s important to make them accessible. One way to do so is to use a kubernetes Service. Services are basically a wrapper around pods that allow them to be exposed either through a ClusterIP or a NodePort. A ClusterIP service is just that, a Cluster IP that will be forwarded to one of the services&apos; backend pod (note that this doesn&apos;t provide any real load balancing!!), while a NodePort is essentially a port on any node that will forward to one of the services backends (again, no load balancing there!). Services by themselves are pretty useless, but shine when used in conjunction with a cluster DNS.
+
+## DNS
+
+A cluster DNS is a pod with a fixed ClusterIP that provides name resolution for the cluster. It is composed of 4 parts:
+ - Service: The server needs a known IP which is reachable inside the cluster both by nodes and by containers. Furthermore it needs to be deterministic. To this end, the service IP is a fixed Cluster IP, fixed to 10.254.0.10 (where 10.254.0.0/16 is the cluster IP range)
+ - ServiceAccount: The DNS needs access to the kubernetes API, and uses a service account for that
+ - ConfigMap: The DNS has a configmap available in case we need to change the configuration dynamically. It needs to be initialized to give upstream servers so that cluster components have regular name resolution as well as cluster.
+ - Deployment: The DNS deployment is made of 3 different containers. One is the kube-dns container, that listens to the apiserver for new services. It dynamically updates its configuration and acts as a secondary DNS for the 2nd container: dnsmasq. A third container provides healthchecking for the pod. The only parameter required is by the kube-dns and is simply the cluster name.
+
+## Ingress Controller
+
+Once we have services and name resolution for services, pods within the cluster can communicate with one another, but nothing can come from the outside. This would typically be the job of a reverse proxy like nginx or haproxy, but those wouldn&apos;t be able to dynamically load configuration from the apiserver. This is where ingress controllers come in. An Ingress controller is basically a wrapper over an existing reverse proxy, that is also able to dynamically change its configuration. We use the nginx ingress controller.
+
+## Ingress Rules
+
+One a controller is defined, we need to feed it with rules regarding hostnames and what service they map to. This is the job of Ingress Rules.
+<aside class="notice">
+To update an SSL certificate, we need to create a kubernetes secret of type &quot;tls&quot; using this syntax : `kubectl create secret tls foo-secret --key /tmp/tls.key --cert /tmp/tls.crt`
+</aside>
+<aside class="notice">
+To test an https connection with host based routing, we can&apos;t just use `curl -H &quot;Host: servername&quot; https://127.0.0.1/`. This is because of *SNI*, we need to inform the server what hostname we are trying to access directly in the SSL handshake. As such, we need to do this: `curl https://servername:443/ --resolve servername:443:127.0.0.1`. This has been the source of a lot of pain.
+</aside>
+
+<h2 id="secrets">Secrets</h2>
+<p>Kubernetes has the notion of secrets, which are volumes meant to contain sensible data like encryption keys, certificates, account keys etc... They can be mounted in pods, and encrypted at rest.</p>
+<h2 id="admission-controller">Admission Controller</h2>
+<p>In kubernetes, admission controllers are controllers that try to authenticate calls to the kubernetes API. And some have deep ramifications in how things go on when they&apos;re defined. In our current setup, we only use one admission controller: the ServiceAccount controller. The ServiceAccount controller allows the administrator to define service accounts for pods to use when trying to access the kubernetes API. In particular, when this controller is defined, the apiserver automatically creates and mounts a default serviceaccount secret (per namespace) in every pod that is created, in <code>/var/run/kubernetes/</code> This allows services that need access to the kubernetes API (ie: the DNS) to access the kubernetes API.</p>
+<h2 id="ssl">SSL</h2>
+<p>SSL is important when trying to do things securely. To this end, kubernetes allows communication to be in https rather than plain http. To this end we must define certificates to be used by the various components. In particular, we need 2 certificates : One that will act as a root CA that will be trusted on every node and pod  and one that will be the server&apos;s certificate. The root CA is mounted in every pod as a secret (thanks to the <code>--root-ca</code> flag of the controller manager) </p>
+<h2 id="config-maps">Config Maps</h2>
+<p>Config maps are dynamic configuration that are mounted as files in pods.</p>
+<h2 id="daemon-sets">Daemon Sets</h2>
+<p>A daemonset is a kubernetes object that will ensure that each node runs a copy of a pod. This is very useful for ceph, or a daemonized ingress controller.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Docker.html" class="navigation navigation-prev " aria-label="Previous page: Docker">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="Systemd_In_Kubernetes.html" class="navigation navigation-next " aria-label="Next page: Systemd In Kubernetes">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Kubernetes","level":"1.5.3","depth":2,"next":{"title":"Systemd In Kubernetes","level":"1.5.4","depth":2,"path":"chapter-deploy/Systemd_In_Kubernetes.md","ref":"chapter-deploy/Systemd_In_Kubernetes.md","articles":[]},"previous":{"title":"Docker","level":"1.5.2","depth":2,"path":"chapter-deploy/Docker.md","ref":"chapter-deploy/Docker.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-deploy/Kubernetes.md","mtime":"2018-01-29T14:14:02.004Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-01-29T15:07:49.119Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
