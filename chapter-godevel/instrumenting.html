@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>CockroachDB · GitBook</title>
+        <title>Instrumenting · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../chapter-protocol/" />
+    <link rel="next" href="tracing.html" />
     
     
-    <link rel="prev" href="create_database.html" />
+    <link rel="prev" href="logging.html" />
     
 
     </head>
@@ -115,9 +115,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="./">
+        <li class="chapter " data-level="1.3" data-path="../chapter-storage/">
             
-                <a href="./">
+                <a href="../chapter-storage/">
             
                     
                     Keycloak Storage
@@ -129,9 +129,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.1" data-path="create_database.html">
+        <li class="chapter " data-level="1.3.1" data-path="../chapter-storage/create_database.html">
             
-                <a href="create_database.html">
+                <a href="../chapter-storage/create_database.html">
             
                     
                     Creating the database structure in Keycloak
@@ -142,9 +142,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3.2" data-path="cockroachdb.html">
+        <li class="chapter " data-level="1.3.2" data-path="../chapter-storage/cockroachdb.html">
             
-                <a href="cockroachdb.html">
+                <a href="../chapter-storage/cockroachdb.html">
             
                     
                     CockroachDB
@@ -289,9 +289,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" data-path="../chapter-godevel/">
+        <li class="chapter " data-level="1.6" data-path="./">
             
-                <a href="../chapter-godevel/">
+                <a href="./">
             
                     
                     Go Development
@@ -303,9 +303,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.6.1" data-path="../chapter-godevel/structure.html">
+        <li class="chapter " data-level="1.6.1" data-path="structure.html">
             
-                <a href="../chapter-godevel/structure.html">
+                <a href="structure.html">
             
                     
                     Repository Structure
@@ -316,9 +316,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.2" data-path="../chapter-godevel/test.html">
+        <li class="chapter " data-level="1.6.2" data-path="test.html">
             
-                <a href="../chapter-godevel/test.html">
+                <a href="test.html">
             
                     
                     Testing with mocks
@@ -329,9 +329,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.3" data-path="../chapter-godevel/logging.html">
+        <li class="chapter " data-level="1.6.3" data-path="logging.html">
             
-                <a href="../chapter-godevel/logging.html">
+                <a href="logging.html">
             
                     
                     Logging
@@ -342,9 +342,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.4" data-path="../chapter-godevel/instrumenting.html">
+        <li class="chapter active" data-level="1.6.4" data-path="instrumenting.html">
             
-                <a href="../chapter-godevel/instrumenting.html">
+                <a href="instrumenting.html">
             
                     
                     Instrumenting
@@ -355,9 +355,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.5" data-path="../chapter-godevel/tracing.html">
+        <li class="chapter " data-level="1.6.5" data-path="tracing.html">
             
-                <a href="../chapter-godevel/tracing.html">
+                <a href="tracing.html">
             
                     
                     Tracing
@@ -368,9 +368,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.6" data-path="../chapter-godevel/tracking.html">
+        <li class="chapter " data-level="1.6.6" data-path="tracking.html">
             
-                <a href="../chapter-godevel/tracking.html">
+                <a href="tracking.html">
             
                     
                     Tracking
@@ -416,7 +416,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >CockroachDB</a>
+        <a href=".." >Instrumenting</a>
     </h1>
 </div>
 
@@ -431,33 +431,61 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="cockroachdb">CockroachDB</h1>
-<p>In this chapter we will discuss the methods with which support for CockroachDB was added to Keycloak.</p>
-<h2 id="database-schema-creation">Database schema creation</h2>
-<p>Keycloak uses Liquibase to create the database schema and all constants (see <a href="create_database.html">Creating the database</a>).  Liquibase supports PostgreSQL, but not directly CockroachDB. However, since CockroachDB uses the PostgreSQL jdbc driver and supports the syntax, Liquibase is mostly compable with CockroachDB.</p>
-<p>However, there are quite a few notable exceptions to this compatibility, and they arise when Keycloak&apos;s &quot;normal&quot; database changelogs are used. To correct the problem, a new set of changelogs specifically for CockroachDB are generated, mostely using the <code>ChangeLogEditor</code> - a java tool developped specifcally for this purpose.</p>
-<p>The following subsections list the incompatibilities between the Keycloak changelogs and CockroachDB, and the modifications made.</p>
-<h3 id="adding-primary-keys">Adding primary keys</h3>
-<p>In CockroachDB primary keys must be created with the tables and cannot be manipulated afterwards, but in the Keycloak changelogs the operation is always seperate. To correct this, the syntax is modified to group the creation of primary keys in the create table instruction.</p>
-<p>However, in a few cases (about 8), &quot;primary columns&quot; are removed, and a new key is added. Since the table generation is in another file, in this case:</p>
-<ol>
-<li>A new table is created with the correct structure</li>
-<li>The contents are copied from the old table to the new table</li>
-<li>The old table is dropped</li>
-<li>The new table is renamed to the correct table name. </li>
-</ol>
-<h3 id="adding-foreign-keys">Adding foreign keys</h3>
-<p>Foreign keys can be added and removed without problem in CockroachDB, however the column(s) MUST have a index defined on it. The solution creates indexes on all columns in a new changelog (to avoid precedence problems), and moves all &quot;add foreign keys&quot; to a third column (for the same reason.</p>
-<h3 id="removing-unique-constraints">Removing unique constraints</h3>
-<p>In CockroachDB altering a table to add a unique constraint in fact creates a unique index, and adds an entry to the list of constraints. And in fact creating a unique index does exactly the same thing, meaning that the two are interchangable. However, while it is possible to drop a unique index (which also drops the contraint), the CockRoachDB does not allow the syntax to drop the constraint. </p>
-<p>The modification changes all instances of &quot;drop unique constraint&quot; to &quot;drop uinique index&quot;.</p>
-<h3 id="activities-that-must-or-should-be-done">Activities that must or should be done</h3>
-<p>This TODO list can be editied as the following tasks are resolved:</p>
-<ul>
-<li>Only create indexes for foreign keys when one does not already exist</li>
-<li>Remove indexes created for foreign keys when they are removed</li>
-<li>Push a modification to CockroachDB to ensure that &quot;remove unique contraint&quot; acts like &quot;remove unique index&quot;</li>
-</ul>
+                                <h1 id="instrumenting">Instrumenting</h1>
+<p>Each service can record metrics and send them to an <a href="https://www.influxdata.com/time-series-platform/influxdb/" target="_blank">Influx</a> time series DB. We can record several types of metric, like for example the number of HTTP/GRPC requests, the services response time,...</p>
+<h2 id="influx">Influx</h2>
+<p>By default the influx configuration is empty, which mean that the metrics are disabled. To activate them, provide configuration for infux in the configuration file.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Default value </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>influx-url</td>
+<td>Influx URL</td>
+<td>&quot;&quot;</td>
+</tr>
+<tr>
+<td>influx-username</td>
+<td>InfluxDB username</td>
+<td>&quot;&quot;</td>
+</tr>
+<tr>
+<td>influx-password</td>
+<td>InfluxDB password</td>
+<td>&quot;&quot;</td>
+</tr>
+<tr>
+<td>influx-database</td>
+<td>InfluxDB database name</td>
+<td>&quot;&quot;</td>
+</tr>
+<tr>
+<td>influx-precision</td>
+<td>Write precision of the points</td>
+<td>&quot;&quot;</td>
+</tr>
+<tr>
+<td>influx-retention-policy</td>
+<td>Retention policy of the points</td>
+<td>&quot;&quot;</td>
+</tr>
+<tr>
+<td>influx-write-consistency</td>
+<td>Number of servers required to confirm write</td>
+<td>&quot;&quot;</td>
+</tr>
+<tr>
+<td>influx-write-interval-ms</td>
+<td>Flush interval in milliseconds</td>
+<td>1000</td>
+</tr>
+</tbody>
+</table>
 
                                 
                                 </section>
@@ -485,12 +513,12 @@
 
             
                 
-                <a href="create_database.html" class="navigation navigation-prev " aria-label="Previous page: Creating the database structure in Keycloak">
+                <a href="logging.html" class="navigation navigation-prev " aria-label="Previous page: Logging">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../chapter-protocol/" class="navigation navigation-next " aria-label="Next page: Keycloak Protocol">
+                <a href="tracing.html" class="navigation navigation-next " aria-label="Next page: Tracing">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -501,7 +529,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"CockroachDB","level":"1.3.2","depth":2,"next":{"title":"Keycloak Protocol","level":"1.4","depth":1,"path":"chapter-protocol/README.md","ref":"chapter-protocol/README.md","articles":[{"title":"General principals","level":"1.4.1","depth":2,"path":"chapter-protocol/general_principals.md","ref":"chapter-protocol/general_principals.md","articles":[]},{"title":"Implementation of WS-FED","level":"1.4.2","depth":2,"path":"chapter-protocol/ws-fed.md","ref":"chapter-protocol/ws-fed.md","articles":[]}]},"previous":{"title":"Creating the database structure in Keycloak","level":"1.3.1","depth":2,"path":"chapter-storage/create_database.md","ref":"chapter-storage/create_database.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-storage/cockroachdb.md","mtime":"2018-02-01T14:49:32.562Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-23T07:19:13.617Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Instrumenting","level":"1.6.4","depth":2,"next":{"title":"Tracing","level":"1.6.5","depth":2,"path":"chapter-godevel/tracing.md","ref":"chapter-godevel/tracing.md","articles":[]},"previous":{"title":"Logging","level":"1.6.3","depth":2,"path":"chapter-godevel/logging.md","ref":"chapter-godevel/logging.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-godevel/instrumenting.md","mtime":"2018-02-23T07:11:46.676Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-23T07:19:13.617Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

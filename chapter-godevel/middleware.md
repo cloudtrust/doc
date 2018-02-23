@@ -6,7 +6,7 @@ The go microservices are built with go-kit and structured in 4 layers:
 - component
 - module
 
-Each of these layer can contain middlewares. A typical Cloudtrust microservice will have at least logging, tracing, metric and error tracking middleware. Each of the middleware may be present 0 or 1 time per layer. For example in the [flaki-service](https://github.com/cloudtrust/flaki-service), there is a metric middleware at the endpoint, component and module level. This middleware tracks the response time of each level, so if there is performance issues or surprisingly slow response from the application, we can quickly pinpoint the source of the problem.
+Each of these layer can contain middlewares. A typical Cloudtrust microservice will have at least logging, tracing, metric and error tracking middleware. Each of the middleware may be present 0 or more time per layer. For example in the [flaki-service](https://github.com/cloudtrust/flaki-service), there is a metric middleware at the endpoint, component and module level. This middleware tracks the response time of each level, so if there is performance issues or surprisingly slow response from the application, we can quickly pinpoint the source of the problem.
 
 As it is common with go-kit microservices, the components are wired up in the main function. This is why Make...Middleware returns a function with the signature ```func(endpoint) endpoint```. 
 For a middleware at transport level the signature will be ```func(grpc.Handler) grpc.Handler``` for gRPC, and ```func(http.Handler) http.Handler```for HTTP.
@@ -73,12 +73,4 @@ func MakeTracingMiddleware(tracer opentracing.Tracer, operationName string) endp
 
 ## Error tracking
 The error tracking middleware collects errors and send them to Sentry, where there is a dashboard where we can visualise the errors in real-time.
-
-
-
-
-
-
-
-
 

@@ -11,6 +11,7 @@ github.com/cloudtrust/<repo>/
 ├── Gopkg.toml              // Dep manifest
 ├── LICENSE
 ├── README.md
+├── doc.go                  // There must be a go file at repository root, otherwise go get complains.
 ├── script               
 │   └── build.sh            // Build script
 ├── bin         
@@ -21,46 +22,22 @@ github.com/cloudtrust/<repo>/
 ├── conf                    // Configuration files
 │   └── DEV
 │       └── <name>.yml
-└─── pkg
-    ├── <name>
-    │   ├── component
-    │   │   ├── middleware.go
-    │   │   ├── middleware_test.go
-    │   │   ├── service.go
-    │   │   └── service_test.go
-    │   ├── endpoint
-    │   │   ├── endpoint.go
-    │   │   ├── endpoint_test.go
-    │   │   ├── middleware.go
-    │   │   └── middleware_test.go
-    │   ├── module
-    │   │   ├── middleware.go
-    │   │   ├── middleware_test.go
-    │   │   ├── service.go
-    │   │   └── service_test.go
-    │   └── transport
-    │       ├── flatbuffer
-    │       │   └── <name>.fbs
-    │       ├── grpc
-    │       │   ├── grpc.go
-    │       │   ├── grpc_test.go
-    │       │   ├── middleware.go
-    │       │   └── middleware_test.go
-    │       └── http
-    │           ├── http.go
-    │           ├── http_test.go
-    │           ├── middleware.go
-    │           └── middleware_test.go
-    ├── health                            // Health checks
-    │   ├── component
-    │   │   └ ...
-    │   ├── endpoint
-    │   │   └ ...
-    │   ├── module
-    │   │   └ ...
-    │   └── transport
-    │       └ ...
-    └── middleware                        // Middlewares common between services
-        └ ...
-
+└── pkg
+    ├── <name>
+    │   ├── flatbuffer      // Flatbuffers
+    │   │   ├── fb
+    │   │   │   └── ...
+    │   │   └── <name>.fbs
+    │   ├── mock            // Auto generated mocks (see section test)
+    │   │   └── ...
+    │   └── ...
+    ├── health              // Health checks
+    │   ├── mock
+    │   │   └── ...
+    │   └── ...
+    └── middleware          // Middlewares common between services
+        ├── middleware.go
+        ├── middleware_test.go
+        └── mock
+            └── ...
 ```
