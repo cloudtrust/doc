@@ -18,12 +18,11 @@
 
 * [Go Development](chapter-godevel/README.md)
     * [Repository Structure](chapter-godevel/structure.md)
-    * [Testing with mocks](chapter-godevel/test.md)
+    * [Testing with mocks](chapter-godevel/testing.md)
     * [Logging](chapter-godevel/logging.md)
     * [Instrumenting](chapter-godevel/instrumenting.md)
     * [Tracing](chapter-godevel/tracing.md)
     * [Tracking](chapter-godevel/tracking.md)
-
-
+    * [Debugging](chapter-godevel/debugging.md)
     * [Middlewares](chapter-godevel/middleware.md)
 

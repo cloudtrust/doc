@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Keycloak Protocol · GitBook</title>
+        <title>Debugging · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="general_principals.html" />
+    <link rel="next" href="middleware.html" />
     
     
-    <link rel="prev" href="../chapter-storage/cockroachdb.html" />
+    <link rel="prev" href="tracking.html" />
     
 
     </head>
@@ -160,9 +160,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4" data-path="./">
+        <li class="chapter " data-level="1.4" data-path="../chapter-protocol/">
             
-                <a href="./">
+                <a href="../chapter-protocol/">
             
                     
                     Keycloak Protocol
@@ -174,9 +174,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="general_principals.html">
+        <li class="chapter " data-level="1.4.1" data-path="../chapter-protocol/general_principals.html">
             
-                <a href="general_principals.html">
+                <a href="../chapter-protocol/general_principals.html">
             
                     
                     General principals
@@ -187,9 +187,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="ws-fed.html">
+        <li class="chapter " data-level="1.4.2" data-path="../chapter-protocol/ws-fed.html">
             
-                <a href="ws-fed.html">
+                <a href="../chapter-protocol/ws-fed.html">
             
                     
                     Implementation of WS-FED
@@ -289,9 +289,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" data-path="../chapter-godevel/">
+        <li class="chapter " data-level="1.6" data-path="./">
             
-                <a href="../chapter-godevel/">
+                <a href="./">
             
                     
                     Go Development
@@ -303,9 +303,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.6.1" data-path="../chapter-godevel/structure.html">
+        <li class="chapter " data-level="1.6.1" data-path="structure.html">
             
-                <a href="../chapter-godevel/structure.html">
+                <a href="structure.html">
             
                     
                     Repository Structure
@@ -316,9 +316,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.2" data-path="../chapter-godevel/testing.html">
+        <li class="chapter " data-level="1.6.2" data-path="testing.html">
             
-                <a href="../chapter-godevel/testing.html">
+                <a href="testing.html">
             
                     
                     Testing with mocks
@@ -329,9 +329,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.3" data-path="../chapter-godevel/logging.html">
+        <li class="chapter " data-level="1.6.3" data-path="logging.html">
             
-                <a href="../chapter-godevel/logging.html">
+                <a href="logging.html">
             
                     
                     Logging
@@ -342,9 +342,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.4" data-path="../chapter-godevel/instrumenting.html">
+        <li class="chapter " data-level="1.6.4" data-path="instrumenting.html">
             
-                <a href="../chapter-godevel/instrumenting.html">
+                <a href="instrumenting.html">
             
                     
                     Instrumenting
@@ -355,9 +355,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.5" data-path="../chapter-godevel/tracing.html">
+        <li class="chapter " data-level="1.6.5" data-path="tracing.html">
             
-                <a href="../chapter-godevel/tracing.html">
+                <a href="tracing.html">
             
                     
                     Tracing
@@ -368,9 +368,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.6" data-path="../chapter-godevel/tracking.html">
+        <li class="chapter " data-level="1.6.6" data-path="tracking.html">
             
-                <a href="../chapter-godevel/tracking.html">
+                <a href="tracking.html">
             
                     
                     Tracking
@@ -381,9 +381,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.7" data-path="../chapter-godevel/debugging.html">
+        <li class="chapter active" data-level="1.6.7" data-path="debugging.html">
             
-                <a href="../chapter-godevel/debugging.html">
+                <a href="debugging.html">
             
                     
                     Debugging
@@ -394,9 +394,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.8" data-path="../chapter-godevel/middleware.html">
+        <li class="chapter " data-level="1.6.8" data-path="middleware.html">
             
-                <a href="../chapter-godevel/middleware.html">
+                <a href="middleware.html">
             
                     
                     Middlewares
@@ -442,7 +442,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Keycloak Protocol</a>
+        <a href=".." >Debugging</a>
     </h1>
 </div>
 
@@ -457,8 +457,24 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="keycloak-protocol">Keycloak Protocol</h1>
-<p>This chapter contains the principals of keycloak&apos;s protocol implementation. We will explore botht the principals of implementing a protocol in keycloak and the concrete implementation of the WS-Fed protocol.</p>
+                                <h1 id="debug">Debug</h1>
+<p>The golang pprof package serves runtime profiling data via the HTTP server (see <a href="https://golang.org/pkg/net/http/pprof/" target="_blank">documentation</a>). If <code>pprof-route-enabled</code> is true, we enable the HTTP pprof routes.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Default value </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pprof-route-enabled</td>
+<td>whether the pprof debug routes are enabled</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
 
                                 
                                 </section>
@@ -486,12 +502,12 @@
 
             
                 
-                <a href="../chapter-storage/cockroachdb.html" class="navigation navigation-prev " aria-label="Previous page: CockroachDB">
+                <a href="tracking.html" class="navigation navigation-prev " aria-label="Previous page: Tracking">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="general_principals.html" class="navigation navigation-next " aria-label="Next page: General principals">
+                <a href="middleware.html" class="navigation navigation-next " aria-label="Next page: Middlewares">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -502,7 +518,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Keycloak Protocol","level":"1.4","depth":1,"next":{"title":"General principals","level":"1.4.1","depth":2,"path":"chapter-protocol/general_principals.md","ref":"chapter-protocol/general_principals.md","articles":[]},"previous":{"title":"CockroachDB","level":"1.3.2","depth":2,"path":"chapter-storage/cockroachdb.md","ref":"chapter-storage/cockroachdb.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-protocol/README.md","mtime":"2018-02-01T14:49:32.561Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-24T12:52:49.323Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Debugging","level":"1.6.7","depth":2,"next":{"title":"Middlewares","level":"1.6.8","depth":2,"path":"chapter-godevel/middleware.md","ref":"chapter-godevel/middleware.md","articles":[]},"previous":{"title":"Tracking","level":"1.6.6","depth":2,"path":"chapter-godevel/tracking.md","ref":"chapter-godevel/tracking.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-godevel/debugging.md","mtime":"2018-02-24T12:47:53.686Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-24T12:52:49.323Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
