@@ -51,6 +51,8 @@ etcd is a distributed KV store used by the kube-apiserver and flannel.
 
 ## How it all interacts
 
+![gras](/chapter-deploy/img/kubestruct.png)
+
 ### Typical structure of a kubernetes node
 
 A kubernetes node typically has 3 things going on to connect it to the rest of the Ecosystem. Each node should be thought of as belonging to 3 networks, each maintained differently.
@@ -61,5 +63,4 @@ Containers are assigned IPs from the flannel range by the docker daemon, which i
 - 2: The Cluster IP. Kubernetes cluster can define a cluster IP for kubernetes managed services. Using this mechanism, we can expose a postgresql service on ip 10.254.10.223, which will point to the postgresql containers IPs. This is kept up to date by the kube-proxy, which watches updates to the apiserver and modifies iptables NAT rules accordingly. The cluster IP does not have an interface. Cluster IP backends are NOT currently load-balanced. So if a service links to multiple containers, each kube-proxy will pick a backend in a round-robin fashion and not change it until the container goes down. This provides a very primitive form of load-balancing, but is unsatisfactory.
 
 - 3: The node's IP. This is the public IP of the node, and the only real NIC the node should need
-
 

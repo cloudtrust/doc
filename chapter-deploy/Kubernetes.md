@@ -5,19 +5,17 @@ Essentially, this means specifying what containers to run, in how many replicas,
 Kubernetes isn't inherently complex, but it has many different parts and a lot of small behaviour quirks, and it can feel overwhelming to a beginner. This section attempts to demistify all of the fluff of kubernetes that cloudtrust uses.
 
 ## Defining resources
-
 Kubernetes understands all resource definition through yaml files. For a complete reference refer to : https://v1-7.docs.kubernetes.io/docs/api-reference/v1.7/
 
 ## Pods
 
-A Pod in kubernetes is simply a set of containers that share a few namespaces. Namely Network and PID by default.
-<aside class="notice">
-In our case, where we run systemd in our containers, PID namespace sharing has to be disabled!! This is due to the fact that kubernetes runs a `pause` initialization container to initialize the common namespace for containers in the pod. This `pause` program gets PID 1 and systemd refuses to run!
-</aside>
-Pods aren't meant to be manipulated directly. Just like we used to run container by `start`ing them in a systemd unit file, we want kubernetes to restart pods when they fail.
-So pods aren't used in cloudtrust, except for one category of pods.
+Pods in kubernetes is simply a set of containers that share a few namespaces. Namely Network and PID by default.
 
-### Static Pods
+> **Warning** In our case, where we run systemd in our containers, PID namespace sharing has to be disabled!! This is due to the fact that kubernetes runs a `pause` initialization container to initialize the common namespace for containers in the pod. This `pause` program gets PID 1 and systemd refuses to run!
+
+Pods aren't meant to be manipulated directly. Just like we used to run container by `start`ing them in a systemd unit file, we want kubernetes to restart pods when they fail. So pods aren't used in cloudtrust, except for one category of pods.
+
+## Static Pods
 
 Remember that kubernetes has 5 components that run on a master node, and 2 that run on every slave. Among those, the kubelet and kube-proxy *have* to run on the host, as one runs containers and the other manages iptables rules. The 3 master components, however, can run inside containers. But running containers that won't be managed by kubernetes among a whole ecosystem of containers can be foolish (To understand that, simply run a `docker ps` on a kubernetes node, and try to find the containers you've run by hand). To this end, kubernetes provides a mechanism to run static pods. Static pods are kubernetes pods that are launched by the kubelet without interaction with the Apiserver. To define static pods, we have to provide a directory that the kubelet watches for changes and write manifests inside. This is a great way to run master components (apiserver, scheduler, controller-manager, etcd...) in containers and see them through kubernetes.
 
@@ -44,12 +42,11 @@ Once we have services and name resolution for services, pods within the cluster 
 ## Ingress Rules
 
 One a controller is defined, we need to feed it with rules regarding hostnames and what service they map to. This is the job of Ingress Rules.
-<aside class="notice">
-To update an SSL certificate, we need to create a kubernetes secret of type "tls" using this syntax : `kubectl create secret tls foo-secret --key /tmp/tls.key --cert /tmp/tls.crt`
-</aside>
-<aside class="notice">
-To test an https connection with host based routing, we can't just use `curl -H "Host: servername" https://127.0.0.1/`. This is because of *SNI*, we need to inform the server what hostname we are trying to access directly in the SSL handshake. As such, we need to do this: `curl https://servername:443/ --resolve servername:443:127.0.0.1`. This has been the source of a lot of pain.
-</aside>
+
+> **Hint** To update an SSL certificate, we need to create a kubernetes secret of type "tls" using this syntax : `kubectl create secret tls foo-secret --key /tmp/tls.key --cert /tmp/tls.crt`
+
+<!-- -->
+> **Hint** To test an https connection with host based routing, we can't just use `curl -H "Host: servername" https://127.0.0.1/`. This is because of *SNI*, we need to inform the server what hostname we are trying to access directly in the SSL handshake. As such, we need to do this: `curl https://servername:443/ --resolve servername:443:127.0.0.1`. This has been the source of a lot of pain.
 
 ## Secrets
 

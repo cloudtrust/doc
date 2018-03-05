@@ -17,6 +17,10 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-richquotes/plugin.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
@@ -57,7 +61,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../chapter-godevel/" />
+    <link rel="next" href="Configs.html" />
     
     
     <link rel="prev" href="Systemd_In_Kubernetes.html" />
@@ -284,6 +288,32 @@
             
         </li>
     
+        <li class="chapter " data-level="1.5.6" data-path="Configs.html">
+            
+                <a href="Configs.html">
+            
+                    
+                    Configurations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="Telepresence.html">
+            
+                <a href="Telepresence.html">
+            
+                    
+                    Telepresence
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -457,7 +487,34 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="ansible-in-cloudtrust">Ansible in Cloudtrust</h1>
+<h2 id="introduction-to-ansible">Introduction to ansible</h2>
+<p>We use ansible to almost an embarassing degree in order to make our deployments as fast, reliable, and useable as possible. To this end, it&apos;s important to be familiar with this tool.</p>
+<p>Ansible is simply a python wrapper over an ssh connection that will run <em>tasks</em> on an <em>inventory</em> of hosts. Tasks are typically <em>modules</em>, with parameters shaping what the module does. For instance the &quot;copy&quot; module can copy a file/dir from the ansible host to the ansible target.
+Tasks are organized within <em>roles</em>, and are spread among multiple files to make things cleaner.
+Roles are run via <em>playbooks</em> which are the only thing (as far as cloudtrust is concerned) that ansible should interact with.</p>
+<h2 id="ansible-in-cloudtrust">Ansible in cloudtrust</h2>
+<p>For every component that&apos;s deployable there is a playbook. We try to unify the tags that are used in each playbook as <em>build</em>, <em>deploy</em>, and <em>cleanup</em>. </p>
+<p>We will go over what the standard playbook do, and for that we will look at the keycloak playbook. The keycloak playbook simply runs the keycloak role, which runs tasks based on the given tags.</p>
+<ul>
+<li>build: Depending on the value of multiple vars, ansible will clone repos locally and run <code>docker build</code> on the keycloak dockerfile with appropriate arguments. Once the build is done, the image is saved into a tar archive.</li>
+<li>deploy: Once the build step is done, deploy will push the tar to the target (every host in the inventory). It will also render and deploy keycloak templates for kubernetes resources. Namely a service, a deployment, an ingress, and a tls certificate.</li>
+<li>cleanup: Currently, cleanup only removes the locally cloned repository and the remote copy location. It has no effect on either the docker image or stuff instanciated in kubernetes.</li>
+</ul>
+<h3 id="ansible-variables">Ansible variables</h3>
+<p>Builds and deploys by their nature cannot be the same everytime everywhere, multiple environment will typically vary. For example a dev will have self-signed certificate but production will need an actual certificate. Passwords and other secrets will also vary from place to place, and we might like having the option to deploy something other than the tip of the dev branch.
+In short, we need a way to customize deployments according to environments, and this is where variables come in.</p>
+<p>There are variables defined at 4 different places, with different priorities, and different expected use.</p>
+<ul>
+<li>group_vars: These are the most global variables, they will be available from every role, and are typically for general &quot;state of the cluster&quot; type things, such as IP ranges, cluster name, etc...</li>
+<li>role defaults: In the <em>defaults</em> folder of most roles, there are variables specific to that role set to appropriate settings. These typically include names, paths... These should not change that often as they don&apos;t relate to things that useful.</li>
+<li>role vars: This is in the vars folder of some roles. This contains variables that are specific to that role and impact functional things. These typically include URLs for repositories, and commit hashes/versions. These win over role defaults if a variable is specified multiple times.</li>
+<li>extra vars: These add variables at runtime and are added to a playbook execution using <code>-e</code>. These are extremely specific use-cases that are added on a case-per-case basis, such as <em>force</em> which will force a docker image to be rebuilt without using cache, or <em>docker_http_proxy</em> which will add a proxy inside the docker service file.</li>
+</ul>
+<p>To set environment specific variables, we have environment repositories, which contain the variables required for proper initialization. One such is the dev-config repository, which contains the dev configuration.
+Along with role variables, these repositories can come with files (certificates, tokens...) that need to be deployed</p>
+<p>Preparing an environment for deployment is done via the <code>config.yml</code> playbook, which simply clones the repository (url and tag passed by extra var) and syncs its content, mainly role variables and role files.</p>
+
                                 
                                 </section>
                             
@@ -489,7 +546,7 @@
                 </a>
                 
                 
-                <a href="../chapter-godevel/" class="navigation navigation-next " aria-label="Next page: Go Development">
+                <a href="Configs.html" class="navigation navigation-next " aria-label="Next page: Configurations">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -500,7 +557,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Ansible","level":"1.5.5","depth":2,"next":{"title":"Go Development","level":"1.6","depth":1,"path":"chapter-godevel/README.md","ref":"chapter-godevel/README.md","articles":[{"title":"Repository Structure","level":"1.6.1","depth":2,"path":"chapter-godevel/structure.md","ref":"chapter-godevel/structure.md","articles":[]},{"title":"Testing with mocks","level":"1.6.2","depth":2,"path":"chapter-godevel/testing.md","ref":"chapter-godevel/testing.md","articles":[]},{"title":"Logging","level":"1.6.3","depth":2,"path":"chapter-godevel/logging.md","ref":"chapter-godevel/logging.md","articles":[]},{"title":"Instrumenting","level":"1.6.4","depth":2,"path":"chapter-godevel/instrumenting.md","ref":"chapter-godevel/instrumenting.md","articles":[]},{"title":"Tracing","level":"1.6.5","depth":2,"path":"chapter-godevel/tracing.md","ref":"chapter-godevel/tracing.md","articles":[]},{"title":"Tracking","level":"1.6.6","depth":2,"path":"chapter-godevel/tracking.md","ref":"chapter-godevel/tracking.md","articles":[]},{"title":"Debugging","level":"1.6.7","depth":2,"path":"chapter-godevel/debugging.md","ref":"chapter-godevel/debugging.md","articles":[]},{"title":"Middlewares","level":"1.6.8","depth":2,"path":"chapter-godevel/middleware.md","ref":"chapter-godevel/middleware.md","articles":[]}]},"previous":{"title":"Systemd In Kubernetes","level":"1.5.4","depth":2,"path":"chapter-deploy/Systemd_In_Kubernetes.md","ref":"chapter-deploy/Systemd_In_Kubernetes.md","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-deploy/Ansible.md","mtime":"2018-02-01T14:49:32.560Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-24T12:52:49.323Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Ansible","level":"1.5.5","depth":2,"next":{"title":"Configurations","level":"1.5.6","depth":2,"path":"chapter-deploy/Configs.md","ref":"chapter-deploy/Configs.md","articles":[]},"previous":{"title":"Systemd In Kubernetes","level":"1.5.4","depth":2,"path":"chapter-deploy/Systemd_In_Kubernetes.md","ref":"chapter-deploy/Systemd_In_Kubernetes.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["richquotes"],"pluginsConfig":{"richquotes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-deploy/Ansible.md","mtime":"2018-03-05T11:36:33.505Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-05T12:54:41.225Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

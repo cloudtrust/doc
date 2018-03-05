@@ -22,24 +22,14 @@ Furthermore, an init system is a great asset when trying to initialize container
 
 Our containers all follow the same schema for buildup:
  - base image: This image contains the git keys to pull from repos, as well as some system utilities. It installs git, systemd and the likes.
- - component image: This image installs a component and its dependencies (for instance keycloak and its bridge and its modules)
- - customer image: This image applies configuration to the component and the container.
-
-Our different containers :
- - Postgresql: The Postgresql component image is very simple. We install postgresql, enable it, and set `/var/lib/pgsql` as a volume. The customer image is slightly more complex. It expects to have two files: `postgresql_init_sentry.service` and `postgresql_init_keycloak.service`, which are systemd units that run once postgresql is up, initialize users and databases required by sentry and keycloak, and then disable themselves. This mechanism is our main system for initializing containers at this moment.
-
- - Sentry: The sentry component image installs and enables sentry. The customer image is in charge of initializing the database and importing the saved configuration.
-
- - Keycloak: The component image installs keycloak and deploys modules where they should be. The customer image sets the standalone.xml, the user.json and the keycloak-bridge configuration/service.
-
- - Influx: The influx component image installs and enables influx it also installs the influx tools in their python virtual environment, and the init service file. The customer image deploys the config file used by the systemd service.
-
- - Grafana: The simplest of our images. it installs and enables grafana. The customer image is empty.
-
+ - component image: This image installs a component and its dependencies (for instance keycloak and its bridge and its modules), and usually comes with a plethora of arguments to shape it. Typical arguments are 
+   - config_repository and git_tag : An application needs configuration, those are stored (for now) on a git server, those parameters specify the repository and the tag/commit hash of what to pull.
+   - service_git_tag : The dockerfile should be explicit about what commit it is issued from! So instead of `ADD`ing the common configuration, we `git clone` it instead.
+   - service_url : Sometimes a component depends on other components, and the dockerfile must fetch them. This is the url at which it will find the binaries to run.
 
 ## Systemd In Containers
 
-Systemd is the standard Linux init system. It expects to be running as PID 1 and have full control over the system. Thankfully, a lot of work has been put into it to make it runnable inside an unprivileged container. This however requires that :
+Systemd is a widely used Linux init system. It expects to be running as PID 1 and have full control over the system. Thankfully, a lot of work has been put into it to make it runnable inside an unprivileged container. This however requires that :
  - /tmp is a tmpfs
  - /run is a tmpfs
  - /sys/fs/cgroup is mounted and is readable

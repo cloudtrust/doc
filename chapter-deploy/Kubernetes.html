@@ -17,6 +17,10 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-richquotes/plugin.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
@@ -284,6 +288,32 @@
             
         </li>
     
+        <li class="chapter " data-level="1.5.6" data-path="Configs.html">
+            
+                <a href="Configs.html">
+            
+                    
+                    Configurations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="Telepresence.html">
+            
+                <a href="Telepresence.html">
+            
+                    
+                    Telepresence
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -464,47 +494,36 @@ Kubernetes isn&apos;t inherently complex, but it has many different parts and a 
 <h2 id="defining-resources">Defining resources</h2>
 <p>Kubernetes understands all resource definition through yaml files. For a complete reference refer to : <a href="https://v1-7.docs.kubernetes.io/docs/api-reference/v1.7/" target="_blank">https://v1-7.docs.kubernetes.io/docs/api-reference/v1.7/</a></p>
 <h2 id="pods">Pods</h2>
-<p>A Pod in kubernetes is simply a set of containers that share a few namespaces. Namely Network and PID by default.</p>
-<aside class="notice">
-In our case, where we run systemd in our containers, PID namespace sharing has to be disabled!! This is due to the fact that kubernetes runs a `pause` initialization container to initialize the common namespace for containers in the pod. This `pause` program gets PID 1 and systemd refuses to run!
-</aside>
-Pods aren&apos;t meant to be manipulated directly. Just like we used to run container by `start`ing them in a systemd unit file, we want kubernetes to restart pods when they fail.
-So pods aren&apos;t used in cloudtrust, except for one category of pods.
-
-### Static Pods
-
-Remember that kubernetes has 5 components that run on a master node, and 2 that run on every slave. Among those, the kubelet and kube-proxy *have* to run on the host, as one runs containers and the other manages iptables rules. The 3 master components, however, can run inside containers. But running containers that won&apos;t be managed by kubernetes among a whole ecosystem of containers can be foolish (To understand that, simply run a `docker ps` on a kubernetes node, and try to find the containers you&apos;ve run by hand). To this end, kubernetes provides a mechanism to run static pods. Static pods are kubernetes pods that are launched by the kubelet without interaction with the Apiserver. To define static pods, we have to provide a directory that the kubelet watches for changes and write manifests inside. This is a great way to run master components (apiserver, scheduler, controller-manager, etcd...) in containers and see them through kubernetes.
-
-## Deployments
-
-Kubernetes pods are ephemeral and not very useful on their own, as they can&apos;t scale up or down easily. The answer to this problem is deployments. Deployments allow us to specify a number of expected replicas, and come with nice rolling update features. When a deployment is created, it automatically spawns a replicaset controller, which specifies the desired state in the controller manager. This will ensure that X replicas are always running (if possible).
-
-## Service
-
-Once containers are spawned, it&apos;s important to make them accessible. One way to do so is to use a kubernetes Service. Services are basically a wrapper around pods that allow them to be exposed either through a ClusterIP or a NodePort. A ClusterIP service is just that, a Cluster IP that will be forwarded to one of the services&apos; backend pod (note that this doesn&apos;t provide any real load balancing!!), while a NodePort is essentially a port on any node that will forward to one of the services backends (again, no load balancing there!). Services by themselves are pretty useless, but shine when used in conjunction with a cluster DNS.
-
-## DNS
-
-A cluster DNS is a pod with a fixed ClusterIP that provides name resolution for the cluster. It is composed of 4 parts:
- - Service: The server needs a known IP which is reachable inside the cluster both by nodes and by containers. Furthermore it needs to be deterministic. To this end, the service IP is a fixed Cluster IP, fixed to 10.254.0.10 (where 10.254.0.0/16 is the cluster IP range)
- - ServiceAccount: The DNS needs access to the kubernetes API, and uses a service account for that
- - ConfigMap: The DNS has a configmap available in case we need to change the configuration dynamically. It needs to be initialized to give upstream servers so that cluster components have regular name resolution as well as cluster.
- - Deployment: The DNS deployment is made of 3 different containers. One is the kube-dns container, that listens to the apiserver for new services. It dynamically updates its configuration and acts as a secondary DNS for the 2nd container: dnsmasq. A third container provides healthchecking for the pod. The only parameter required is by the kube-dns and is simply the cluster name.
-
-## Ingress Controller
-
-Once we have services and name resolution for services, pods within the cluster can communicate with one another, but nothing can come from the outside. This would typically be the job of a reverse proxy like nginx or haproxy, but those wouldn&apos;t be able to dynamically load configuration from the apiserver. This is where ingress controllers come in. An Ingress controller is basically a wrapper over an existing reverse proxy, that is also able to dynamically change its configuration. We use the nginx ingress controller.
-
-## Ingress Rules
-
-One a controller is defined, we need to feed it with rules regarding hostnames and what service they map to. This is the job of Ingress Rules.
-<aside class="notice">
-To update an SSL certificate, we need to create a kubernetes secret of type &quot;tls&quot; using this syntax : `kubectl create secret tls foo-secret --key /tmp/tls.key --cert /tmp/tls.crt`
-</aside>
-<aside class="notice">
-To test an https connection with host based routing, we can&apos;t just use `curl -H &quot;Host: servername&quot; https://127.0.0.1/`. This is because of *SNI*, we need to inform the server what hostname we are trying to access directly in the SSL handshake. As such, we need to do this: `curl https://servername:443/ --resolve servername:443:127.0.0.1`. This has been the source of a lot of pain.
-</aside>
-
+<p>Pods in kubernetes is simply a set of containers that share a few namespaces. Namely Network and PID by default.</p>
+<blockquote class="clearfix alert alert-warning"><strong class="fa fa-2x fa-exclamation-triangle"></strong>
+<p> In our case, where we run systemd in our containers, PID namespace sharing has to be disabled!! This is due to the fact that kubernetes runs a <code>pause</code> initialization container to initialize the common namespace for containers in the pod. This <code>pause</code> program gets PID 1 and systemd refuses to run!</p>
+</blockquote>
+<p>Pods aren&apos;t meant to be manipulated directly. Just like we used to run container by <code>start</code>ing them in a systemd unit file, we want kubernetes to restart pods when they fail. So pods aren&apos;t used in cloudtrust, except for one category of pods.</p>
+<h2 id="static-pods">Static Pods</h2>
+<p>Remember that kubernetes has 5 components that run on a master node, and 2 that run on every slave. Among those, the kubelet and kube-proxy <em>have</em> to run on the host, as one runs containers and the other manages iptables rules. The 3 master components, however, can run inside containers. But running containers that won&apos;t be managed by kubernetes among a whole ecosystem of containers can be foolish (To understand that, simply run a <code>docker ps</code> on a kubernetes node, and try to find the containers you&apos;ve run by hand). To this end, kubernetes provides a mechanism to run static pods. Static pods are kubernetes pods that are launched by the kubelet without interaction with the Apiserver. To define static pods, we have to provide a directory that the kubelet watches for changes and write manifests inside. This is a great way to run master components (apiserver, scheduler, controller-manager, etcd...) in containers and see them through kubernetes.</p>
+<h2 id="deployments">Deployments</h2>
+<p>Kubernetes pods are ephemeral and not very useful on their own, as they can&apos;t scale up or down easily. The answer to this problem is deployments. Deployments allow us to specify a number of expected replicas, and come with nice rolling update features. When a deployment is created, it automatically spawns a replicaset controller, which specifies the desired state in the controller manager. This will ensure that X replicas are always running (if possible).</p>
+<h2 id="service">Service</h2>
+<p>Once containers are spawned, it&apos;s important to make them accessible. One way to do so is to use a kubernetes Service. Services are basically a wrapper around pods that allow them to be exposed either through a ClusterIP or a NodePort. A ClusterIP service is just that, a Cluster IP that will be forwarded to one of the services&apos; backend pod (note that this doesn&apos;t provide any real load balancing!!), while a NodePort is essentially a port on any node that will forward to one of the services backends (again, no load balancing there!). Services by themselves are pretty useless, but shine when used in conjunction with a cluster DNS.</p>
+<h2 id="dns">DNS</h2>
+<p>A cluster DNS is a pod with a fixed ClusterIP that provides name resolution for the cluster. It is composed of 4 parts:</p>
+<ul>
+<li>Service: The server needs a known IP which is reachable inside the cluster both by nodes and by containers. Furthermore it needs to be deterministic. To this end, the service IP is a fixed Cluster IP, fixed to 10.254.0.10 (where 10.254.0.0/16 is the cluster IP range)</li>
+<li>ServiceAccount: The DNS needs access to the kubernetes API, and uses a service account for that</li>
+<li>ConfigMap: The DNS has a configmap available in case we need to change the configuration dynamically. It needs to be initialized to give upstream servers so that cluster components have regular name resolution as well as cluster.</li>
+<li>Deployment: The DNS deployment is made of 3 different containers. One is the kube-dns container, that listens to the apiserver for new services. It dynamically updates its configuration and acts as a secondary DNS for the 2nd container: dnsmasq. A third container provides healthchecking for the pod. The only parameter required is by the kube-dns and is simply the cluster name.</li>
+</ul>
+<h2 id="ingress-controller">Ingress Controller</h2>
+<p>Once we have services and name resolution for services, pods within the cluster can communicate with one another, but nothing can come from the outside. This would typically be the job of a reverse proxy like nginx or haproxy, but those wouldn&apos;t be able to dynamically load configuration from the apiserver. This is where ingress controllers come in. An Ingress controller is basically a wrapper over an existing reverse proxy, that is also able to dynamically change its configuration. We use the nginx ingress controller.</p>
+<h2 id="ingress-rules">Ingress Rules</h2>
+<p>One a controller is defined, we need to feed it with rules regarding hostnames and what service they map to. This is the job of Ingress Rules.</p>
+<blockquote class="clearfix alert alert-success"><strong class="fa fa-2x fa-lightbulb-o"></strong>
+<p> To update an SSL certificate, we need to create a kubernetes secret of type &quot;tls&quot; using this syntax : <code>kubectl create secret tls foo-secret --key /tmp/tls.key --cert /tmp/tls.crt</code></p>
+</blockquote>
+<!-- -->
+<blockquote class="clearfix alert alert-success"><strong class="fa fa-2x fa-lightbulb-o"></strong>
+<p> To test an https connection with host based routing, we can&apos;t just use <code>curl -H &quot;Host: servername&quot; https://127.0.0.1/</code>. This is because of <em>SNI</em>, we need to inform the server what hostname we are trying to access directly in the SSL handshake. As such, we need to do this: <code>curl https://servername:443/ --resolve servername:443:127.0.0.1</code>. This has been the source of a lot of pain.</p>
+</blockquote>
 <h2 id="secrets">Secrets</h2>
 <p>Kubernetes has the notion of secrets, which are volumes meant to contain sensible data like encryption keys, certificates, account keys etc... They can be mounted in pods, and encrypted at rest.</p>
 <h2 id="admission-controller">Admission Controller</h2>
@@ -558,7 +577,7 @@ To test an https connection with host based routing, we can&apos;t just use `cur
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Kubernetes","level":"1.5.3","depth":2,"next":{"title":"Systemd In Kubernetes","level":"1.5.4","depth":2,"path":"chapter-deploy/Systemd_In_Kubernetes.md","ref":"chapter-deploy/Systemd_In_Kubernetes.md","articles":[]},"previous":{"title":"Docker","level":"1.5.2","depth":2,"path":"chapter-deploy/Docker.md","ref":"chapter-deploy/Docker.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-deploy/Kubernetes.md","mtime":"2018-02-01T14:49:32.561Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-24T12:52:49.323Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Kubernetes","level":"1.5.3","depth":2,"next":{"title":"Systemd In Kubernetes","level":"1.5.4","depth":2,"path":"chapter-deploy/Systemd_In_Kubernetes.md","ref":"chapter-deploy/Systemd_In_Kubernetes.md","articles":[]},"previous":{"title":"Docker","level":"1.5.2","depth":2,"path":"chapter-deploy/Docker.md","ref":"chapter-deploy/Docker.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["richquotes"],"pluginsConfig":{"richquotes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-deploy/Kubernetes.md","mtime":"2018-03-01T10:08:55.152Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-05T12:54:41.225Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

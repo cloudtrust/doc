@@ -15,6 +15,8 @@
     * [Kubernetes](chapter-deploy/Kubernetes.md)
     * [Systemd In Kubernetes](chapter-deploy/Systemd_In_Kubernetes.md)
     * [Ansible](chapter-deploy/Ansible.md)
+    * [Configurations](chapter-deploy/Configs.md)
+    * [Telepresence](chapter-deploy/Telepresence.md)
 
 * [Go Development](chapter-godevel/README.md)
     * [Repository Structure](chapter-godevel/structure.md)

@@ -17,6 +17,10 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-richquotes/plugin.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
@@ -284,6 +288,32 @@
             
         </li>
     
+        <li class="chapter " data-level="1.5.6" data-path="Configs.html">
+            
+                <a href="Configs.html">
+            
+                    
+                    Configurations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="Telepresence.html">
+            
+                <a href="Telepresence.html">
+            
+                    
+                    Telepresence
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -478,24 +508,15 @@ Furthermore, an init system is a great asset when trying to initialize container
 <p>Our containers all follow the same schema for buildup:</p>
 <ul>
 <li>base image: This image contains the git keys to pull from repos, as well as some system utilities. It installs git, systemd and the likes.</li>
-<li>component image: This image installs a component and its dependencies (for instance keycloak and its bridge and its modules)</li>
-<li>customer image: This image applies configuration to the component and the container.</li>
+<li>component image: This image installs a component and its dependencies (for instance keycloak and its bridge and its modules), and usually comes with a plethora of arguments to shape it. Typical arguments are <ul>
+<li>config_repository and git_tag : An application needs configuration, those are stored (for now) on a git server, those parameters specify the repository and the tag/commit hash of what to pull.</li>
+<li>service_git_tag : The dockerfile should be explicit about what commit it is issued from! So instead of <code>ADD</code>ing the common configuration, we <code>git clone</code> it instead.</li>
+<li>service_url : Sometimes a component depends on other components, and the dockerfile must fetch them. This is the url at which it will find the binaries to run.</li>
 </ul>
-<p>Our different containers :</p>
-<ul>
-<li><p>Postgresql: The Postgresql component image is very simple. We install postgresql, enable it, and set <code>/var/lib/pgsql</code> as a volume. The customer image is slightly more complex. It expects to have two files: <code>postgresql_init_sentry.service</code> and <code>postgresql_init_keycloak.service</code>, which are systemd units that run once postgresql is up, initialize users and databases required by sentry and keycloak, and then disable themselves. This mechanism is our main system for initializing containers at this moment.</p>
-</li>
-<li><p>Sentry: The sentry component image installs and enables sentry. The customer image is in charge of initializing the database and importing the saved configuration.</p>
-</li>
-<li><p>Keycloak: The component image installs keycloak and deploys modules where they should be. The customer image sets the standalone.xml, the user.json and the keycloak-bridge configuration/service.</p>
-</li>
-<li><p>Influx: The influx component image installs and enables influx it also installs the influx tools in their python virtual environment, and the init service file. The customer image deploys the config file used by the systemd service.</p>
-</li>
-<li><p>Grafana: The simplest of our images. it installs and enables grafana. The customer image is empty.</p>
 </li>
 </ul>
 <h2 id="systemd-in-containers">Systemd In Containers</h2>
-<p>Systemd is the standard Linux init system. It expects to be running as PID 1 and have full control over the system. Thankfully, a lot of work has been put into it to make it runnable inside an unprivileged container. This however requires that :</p>
+<p>Systemd is a widely used Linux init system. It expects to be running as PID 1 and have full control over the system. Thankfully, a lot of work has been put into it to make it runnable inside an unprivileged container. This however requires that :</p>
 <ul>
 <li>/tmp is a tmpfs</li>
 <li>/run is a tmpfs</li>
@@ -546,7 +567,7 @@ Docker run commands need to have the following flags : <code>--tmpfs /tmp</code>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Docker","level":"1.5.2","depth":2,"next":{"title":"Kubernetes","level":"1.5.3","depth":2,"path":"chapter-deploy/Kubernetes.md","ref":"chapter-deploy/Kubernetes.md","articles":[]},"previous":{"title":"Introduction","level":"1.5.1","depth":2,"path":"chapter-deploy/Introduction.md","ref":"chapter-deploy/Introduction.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-deploy/Docker.md","mtime":"2018-02-01T14:49:32.561Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-24T12:52:49.323Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Docker","level":"1.5.2","depth":2,"next":{"title":"Kubernetes","level":"1.5.3","depth":2,"path":"chapter-deploy/Kubernetes.md","ref":"chapter-deploy/Kubernetes.md","articles":[]},"previous":{"title":"Introduction","level":"1.5.1","depth":2,"path":"chapter-deploy/Introduction.md","ref":"chapter-deploy/Introduction.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["richquotes"],"pluginsConfig":{"richquotes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-deploy/Docker.md","mtime":"2018-03-01T10:14:48.868Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-05T12:54:41.225Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

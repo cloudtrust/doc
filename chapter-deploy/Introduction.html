@@ -17,6 +17,10 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-richquotes/plugin.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
@@ -284,6 +288,32 @@
             
         </li>
     
+        <li class="chapter " data-level="1.5.6" data-path="Configs.html">
+            
+                <a href="Configs.html">
+            
+                    
+                    Configurations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="Telepresence.html">
+            
+                <a href="Telepresence.html">
+            
+                    
+                    Telepresence
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -485,6 +515,7 @@ Overlay2 is very simple and performs well and has been picked for these reasons<
 <h3 id="etcd">Etcd</h3>
 <p>etcd is a distributed KV store used by the kube-apiserver and flannel.</p>
 <h2 id="how-it-all-interacts">How it all interacts</h2>
+<p><img src="img/kubestruct.png" alt="gras"></p>
 <h3 id="typical-structure-of-a-kubernetes-node">Typical structure of a kubernetes node</h3>
 <p>A kubernetes node typically has 3 things going on to connect it to the rest of the Ecosystem. Each node should be thought of as belonging to 3 networks, each maintained differently.</p>
 <ul>
@@ -539,7 +570,7 @@ Containers are assigned IPs from the flannel range by the docker daemon, which i
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.5.1","depth":2,"next":{"title":"Docker","level":"1.5.2","depth":2,"path":"chapter-deploy/Docker.md","ref":"chapter-deploy/Docker.md","articles":[]},"previous":{"title":"Deployment","level":"1.5","depth":1,"path":"chapter-deploy/README.md","ref":"chapter-deploy/README.md","articles":[{"title":"Introduction","level":"1.5.1","depth":2,"path":"chapter-deploy/Introduction.md","ref":"chapter-deploy/Introduction.md","articles":[]},{"title":"Docker","level":"1.5.2","depth":2,"path":"chapter-deploy/Docker.md","ref":"chapter-deploy/Docker.md","articles":[]},{"title":"Kubernetes","level":"1.5.3","depth":2,"path":"chapter-deploy/Kubernetes.md","ref":"chapter-deploy/Kubernetes.md","articles":[]},{"title":"Systemd In Kubernetes","level":"1.5.4","depth":2,"path":"chapter-deploy/Systemd_In_Kubernetes.md","ref":"chapter-deploy/Systemd_In_Kubernetes.md","articles":[]},{"title":"Ansible","level":"1.5.5","depth":2,"path":"chapter-deploy/Ansible.md","ref":"chapter-deploy/Ansible.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-deploy/Introduction.md","mtime":"2018-02-01T14:49:32.561Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-24T12:52:49.323Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.5.1","depth":2,"next":{"title":"Docker","level":"1.5.2","depth":2,"path":"chapter-deploy/Docker.md","ref":"chapter-deploy/Docker.md","articles":[]},"previous":{"title":"Deployment","level":"1.5","depth":1,"path":"chapter-deploy/README.md","ref":"chapter-deploy/README.md","articles":[{"title":"Introduction","level":"1.5.1","depth":2,"path":"chapter-deploy/Introduction.md","ref":"chapter-deploy/Introduction.md","articles":[]},{"title":"Docker","level":"1.5.2","depth":2,"path":"chapter-deploy/Docker.md","ref":"chapter-deploy/Docker.md","articles":[]},{"title":"Kubernetes","level":"1.5.3","depth":2,"path":"chapter-deploy/Kubernetes.md","ref":"chapter-deploy/Kubernetes.md","articles":[]},{"title":"Systemd In Kubernetes","level":"1.5.4","depth":2,"path":"chapter-deploy/Systemd_In_Kubernetes.md","ref":"chapter-deploy/Systemd_In_Kubernetes.md","articles":[]},{"title":"Ansible","level":"1.5.5","depth":2,"path":"chapter-deploy/Ansible.md","ref":"chapter-deploy/Ansible.md","articles":[]},{"title":"Configurations","level":"1.5.6","depth":2,"path":"chapter-deploy/Configs.md","ref":"chapter-deploy/Configs.md","articles":[]},{"title":"Telepresence","level":"1.5.7","depth":2,"path":"chapter-deploy/Telepresence.md","ref":"chapter-deploy/Telepresence.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["richquotes"],"pluginsConfig":{"richquotes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-deploy/Introduction.md","mtime":"2018-03-01T11:26:30.987Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-05T12:54:41.225Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
