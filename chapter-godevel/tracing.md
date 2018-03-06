@@ -7,8 +7,11 @@ It is disabled by default, to enable it provide configuration in the configurati
 
 Key | Description | Default value 
 --- | ----------- | ------------- 
-jaeger-sampler-type |  | ""
-jaeger-sampler-param |  | 0
-jaeger-sampler-url |  | ""
-jaeger-reporter-logspan |  | false
-jaeger-write-interval-ms | Flush interval in milliseconds | 1000
+jaeger-sampler-type | Sampler type | ""
+jaeger-sampler-param | Sampler param | 0
+jaeger-sampler-host-port | host:port of the jaeger agent | ""
+jaeger-reporter-logspan | Logspan | false
+jaeger-write-interval-ms | Write interval in milliseconds | 1000
+jaeger-collector-healthcheck-host-port | host:port of the jaeger collector | ""
+
+For more information about the configuration of jaeger, see the jaeger documentation.

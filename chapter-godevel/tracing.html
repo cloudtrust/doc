@@ -502,31 +502,37 @@
 <tbody>
 <tr>
 <td>jaeger-sampler-type</td>
-<td></td>
+<td>Sampler type</td>
 <td>&quot;&quot;</td>
 </tr>
 <tr>
 <td>jaeger-sampler-param</td>
-<td></td>
+<td>Sampler param</td>
 <td>0</td>
 </tr>
 <tr>
-<td>jaeger-sampler-url</td>
-<td></td>
+<td>jaeger-sampler-host-port</td>
+<td>host:port of the jaeger agent</td>
 <td>&quot;&quot;</td>
 </tr>
 <tr>
 <td>jaeger-reporter-logspan</td>
-<td></td>
+<td>Logspan</td>
 <td>false</td>
 </tr>
 <tr>
 <td>jaeger-write-interval-ms</td>
-<td>Flush interval in milliseconds</td>
+<td>Write interval in milliseconds</td>
 <td>1000</td>
+</tr>
+<tr>
+<td>jaeger-collector-healthcheck-host-port</td>
+<td>host:port of the jaeger collector</td>
+<td>&quot;&quot;</td>
 </tr>
 </tbody>
 </table>
+<p>For more information about the configuration of jaeger, see the jaeger documentation.</p>
 
                                 
                                 </section>
@@ -570,7 +576,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Tracing","level":"1.6.5","depth":2,"next":{"title":"Tracking","level":"1.6.6","depth":2,"path":"chapter-godevel/tracking.md","ref":"chapter-godevel/tracking.md","articles":[]},"previous":{"title":"Instrumenting","level":"1.6.4","depth":2,"path":"chapter-godevel/instrumenting.md","ref":"chapter-godevel/instrumenting.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["richquotes"],"pluginsConfig":{"richquotes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-godevel/tracing.md","mtime":"2018-03-01T08:51:07.467Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-05T12:54:41.225Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Tracing","level":"1.6.5","depth":2,"next":{"title":"Tracking","level":"1.6.6","depth":2,"path":"chapter-godevel/tracking.md","ref":"chapter-godevel/tracking.md","articles":[]},"previous":{"title":"Instrumenting","level":"1.6.4","depth":2,"path":"chapter-godevel/instrumenting.md","ref":"chapter-godevel/instrumenting.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["richquotes"],"pluginsConfig":{"richquotes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-godevel/tracing.md","mtime":"2018-03-06T08:08:28.123Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-06T08:11:01.565Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

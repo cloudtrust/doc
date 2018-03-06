@@ -8,11 +8,11 @@ By default the influx configuration is empty, which mean that the metrics are di
 
 Key | Description | Default value 
 --- | ----------- | ------------- 
-influx-url | Influx URL | ""
+influx-host-port | Influx host:port | ""
 influx-username | InfluxDB username | ""
 influx-password | InfluxDB password | ""
 influx-database | InfluxDB database name | ""
 influx-precision | Write precision of the points | ""
 influx-retention-policy | Retention policy of the points | ""
 influx-write-consistency | Number of servers required to confirm write | ""
-influx-write-interval-ms | Flush interval in milliseconds | 1000
+influx-write-interval-ms | Write interval in milliseconds | 1000

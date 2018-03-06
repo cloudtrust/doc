@@ -10,6 +10,7 @@ Note that the redis logs are formatted in [Logstash](https://www.elastic.co/prod
 
 Key | Description | Default value 
 --- | ----------- | ------------- 
-redis-url | Redis server URL | ""
+redis-host-port | Redis server host:port | ""
 redis-password | Redis password | ""
 redis-database | Redis database | 0
+redis-write-interval-ms | Write interval in milliseconds | 1000
