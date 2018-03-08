@@ -25,6 +25,7 @@
     * [Instrumenting](chapter-godevel/instrumenting.md)
     * [Tracing](chapter-godevel/tracing.md)
     * [Tracking](chapter-godevel/tracking.md)
+    * [Health routes](chapter-godevel/health_route.md)
     * [Debugging](chapter-godevel/debugging.md)
     * [Middlewares](chapter-godevel/middleware.md)
 
