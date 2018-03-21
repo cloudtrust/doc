@@ -1,12 +1,12 @@
 # Summary
 
 * [Introduction](README.md)
-* [Keycloak Development]
+* Keycloak Development
     * [Sentry integration](chapter-keycloak/sentry.md)
     * [Storage](chapter-keycloak/storage.md)
     * [Protocol](chapter-keycloak/protocol.md)
 
-* [Deployment](chapter-deploy/README.md)
+* Deployment
     * [Introduction](chapter-deploy/Introduction.md)
     * [Docker](chapter-deploy/Docker.md)
     * [Kubernetes](chapter-deploy/Kubernetes.md)
@@ -15,7 +15,7 @@
     * [Configurations](chapter-deploy/Configs.md)
     * [Telepresence](chapter-deploy/Telepresence.md)
 
-* [Go Development]
+* Go Development
     * [Guidelines](chapter-godevel/guideline.md)
     * [Repository Structure](chapter-godevel/structure.md)
     * [Testing with mocks](chapter-godevel/testing.md)
