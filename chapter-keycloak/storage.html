@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Logging · GitBook</title>
+        <title>Storage · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -61,10 +61,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="instrumenting.html" />
+    <link rel="next" href="protocol.html" />
     
     
-    <link rel="prev" href="testing.html" />
+    <link rel="prev" href="sentry.html" />
     
 
     </head>
@@ -120,9 +120,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.2.1" data-path="../chapter-keycloak/sentry.html">
+        <li class="chapter " data-level="1.2.1" data-path="sentry.html">
             
-                <a href="../chapter-keycloak/sentry.html">
+                <a href="sentry.html">
             
                     
                     Sentry integration
@@ -133,9 +133,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.2" data-path="../chapter-keycloak/storage.html">
+        <li class="chapter active" data-level="1.2.2" data-path="storage.html">
             
-                <a href="../chapter-keycloak/storage.html">
+                <a href="storage.html">
             
                     
                     Storage
@@ -146,9 +146,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3" data-path="../chapter-keycloak/protocol.html">
+        <li class="chapter " data-level="1.2.3" data-path="protocol.html">
             
-                <a href="../chapter-keycloak/protocol.html">
+                <a href="protocol.html">
             
                     
                     Protocol
@@ -288,9 +288,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="guideline.html">
+        <li class="chapter " data-level="1.4.1" data-path="../chapter-godevel/guideline.html">
             
-                <a href="guideline.html">
+                <a href="../chapter-godevel/guideline.html">
             
                     
                     Guidelines
@@ -301,9 +301,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="structure.html">
+        <li class="chapter " data-level="1.4.2" data-path="../chapter-godevel/structure.html">
             
-                <a href="structure.html">
+                <a href="../chapter-godevel/structure.html">
             
                     
                     Repository Structure
@@ -314,9 +314,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.3" data-path="testing.html">
+        <li class="chapter " data-level="1.4.3" data-path="../chapter-godevel/testing.html">
             
-                <a href="testing.html">
+                <a href="../chapter-godevel/testing.html">
             
                     
                     Testing with mocks
@@ -327,9 +327,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4.4" data-path="logging.html">
+        <li class="chapter " data-level="1.4.4" data-path="../chapter-godevel/logging.html">
             
-                <a href="logging.html">
+                <a href="../chapter-godevel/logging.html">
             
                     
                     Logging
@@ -340,9 +340,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.5" data-path="instrumenting.html">
+        <li class="chapter " data-level="1.4.5" data-path="../chapter-godevel/instrumenting.html">
             
-                <a href="instrumenting.html">
+                <a href="../chapter-godevel/instrumenting.html">
             
                     
                     Instrumenting
@@ -353,9 +353,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.6" data-path="tracing.html">
+        <li class="chapter " data-level="1.4.6" data-path="../chapter-godevel/tracing.html">
             
-                <a href="tracing.html">
+                <a href="../chapter-godevel/tracing.html">
             
                     
                     Tracing
@@ -366,9 +366,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.7" data-path="tracking.html">
+        <li class="chapter " data-level="1.4.7" data-path="../chapter-godevel/tracking.html">
             
-                <a href="tracking.html">
+                <a href="../chapter-godevel/tracking.html">
             
                     
                     Tracking
@@ -379,9 +379,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.8" data-path="health_route.html">
+        <li class="chapter " data-level="1.4.8" data-path="../chapter-godevel/health_route.html">
             
-                <a href="health_route.html">
+                <a href="../chapter-godevel/health_route.html">
             
                     
                     Health routes
@@ -392,9 +392,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.9" data-path="debugging.html">
+        <li class="chapter " data-level="1.4.9" data-path="../chapter-godevel/debugging.html">
             
-                <a href="debugging.html">
+                <a href="../chapter-godevel/debugging.html">
             
                     
                     Debugging
@@ -405,9 +405,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.10" data-path="middleware.html">
+        <li class="chapter " data-level="1.4.10" data-path="../chapter-godevel/middleware.html">
             
-                <a href="middleware.html">
+                <a href="../chapter-godevel/middleware.html">
             
                     
                     Middlewares
@@ -453,7 +453,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Logging</a>
+        <a href=".." >Storage</a>
     </h1>
 </div>
 
@@ -468,116 +468,43 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="logging">Logging</h1>
-<p>Cloudtrust has a centralised logging solution using the <a href="https://www.elastic.co/webinars/introduction-elk-stack" target="_blank">Elastic Stack</a>.
-To achieve that, the logs are duplicated to Stdout and sent to a <a href="https://redis.io/" target="_blank">Redis</a> server.</p>
-<h2 id="standardised-keys">Standardised Keys</h2>
-<p>It is essential to have normalised keys, so when can easily search for them in Elasticsearch.</p>
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ts</td>
-<td>UTC timestamp (use log.DefaultTimestampUTC)</td>
-</tr>
-<tr>
-<td>caller</td>
-<td>caller (use log.DefaultCaller)</td>
-</tr>
-<tr>
-<td>component_name</td>
-<td>name of the component (e.g. keycloak_bridge)</td>
-</tr>
-<tr>
-<td>component_version</td>
-<td>version of the component (e.g. 1.0)</td>
-</tr>
-<tr>
-<td>environment</td>
-<td>environment (e.g. DEV)</td>
-</tr>
-<tr>
-<td>git_commit</td>
-<td>the commit that was built</td>
-</tr>
-<tr>
-<td>error</td>
-<td>the error</td>
-</tr>
-<tr>
-<td>msg</td>
-<td>the log message</td>
-</tr>
-<tr>
-<td>level</td>
-<td>the log level</td>
-</tr>
-<tr>
-<td>unit</td>
-<td>the unit that logs (e.g. config, influx, ...)</td>
-</tr>
-<tr>
-<td>service</td>
-<td>the service that logs (e.g. health)</td>
-</tr>
-<tr>
-<td>middleware</td>
-<td>the middleware that logs</td>
-</tr>
-<tr>
-<td>module</td>
-<td>the module that logs</td>
-</tr>
-<tr>
-<td>transport</td>
-<td>the transport layer (i.e. http or grpc)</td>
-</tr>
-<tr>
-<td>took</td>
-<td>the response time</td>
-</tr>
-</tbody>
-</table>
-<h2 id="redis">Redis</h2>
-<p>By default the Redis configuration is empty, which mean we do not use Redis. The loggers only log to stdout. 
-If the Redis configuration keys are present in the configuration file, the logs are duplicated to stdout and Redis.
-Note that the redis logs are formatted in <a href="https://www.elastic.co/products/logstash" target="_blank">Logstash</a> format.</p>
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Description</th>
-<th>Default value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>redis-host-port</td>
-<td>Redis server host:port</td>
-<td>&quot;&quot;</td>
-</tr>
-<tr>
-<td>redis-password</td>
-<td>Redis password</td>
-<td>&quot;&quot;</td>
-</tr>
-<tr>
-<td>redis-database</td>
-<td>Redis database</td>
-<td>0</td>
-</tr>
-<tr>
-<td>redis-write-interval-ms</td>
-<td>Write interval in milliseconds</td>
-<td>1000</td>
-</tr>
-</tbody>
-</table>
+                                <h1 id="keycloak-storage">Keycloak Storage</h1>
+<p>This chapter contains the principals of  keycloak storage.</p>
+<h2 id="creating-the-database-structure-in-keycloak">Creating the database structure in Keycloak</h2>
+<p>As long as an initial database is created, keycloak will be able to automatically create its initial state (tables, indexes, constants, etc...), without needing a administrator to run SQL scripts. It does this through the use of <a href="http://www.liquibase.org/" target="_blank">Liquibase</a>. The use of Liquibase also allows the database to be automatically modified when upgrading to a new version of Keycloak.</p>
+<h3 id="about-liquibase">About Liquibase</h3>
+<p>Full documentation may be found on <a href="http://www.liquibase.org/documentation/index.html" title="Liquibase documentation" target="_blank">Liquibase&apos;s website</a>, but the basic principal is the following: changes to the database are recorded within <em>Database change logs</em>, XML files that contain the instructions for manipulating the database. One can for example create tables, delete tables, maniuplate column, indexes, constraints, etc... The philosophy is to create a set of one or more of such database change logs for every new release, and therefore no matter what version you are at, Liquibase can update from your current status to the new one.</p>
+<p>In order to know which files have been run, and therefore which files to run in the event of an upgade, liquibase creates itself the <code>databasechangelog</code> table which records which changelogs have run, and the </p>
+<p>An important note is that liquibase uses the jdbc driver to determine which database is actually being used when applying the commands in the XML files to the database. When databases reuse drivers from another database, which is for example the case for <a href="cockroachdb.md">cockroachdb</a>. However, this means that the transformation Liquibase does from XML &#x2192; SQL may be imperfect. </p>
+<h3 id="use-of-liquibase-in-keycloak">Use of Liquibase in Keycloak</h3>
+<p>In Keycloak all database changelog files can be found at <code>model/jpa/src/main/resources/META-INF</code>. The main file is <code>jpa-changelog-master.xml</code> which contains the list of all database change files to call, and the order in which they are called. Running Keycloak or its unit tests that access the DB will automatically run the master changelog, if necessary.</p>
+<h2 id="cockroachdb">CockroachDB</h2>
+<p>In this chapter we will discuss the methods with which support for CockroachDB was added to Keycloak.</p>
+<h3 id="database-schema-creation">Database schema creation</h3>
+<p>Keycloak uses Liquibase to create the database schema and all constants (see <a href="create_database.md">Creating the database</a>).  Liquibase supports PostgreSQL, but not directly CockroachDB. However, since CockroachDB uses the PostgreSQL jdbc driver and supports the syntax, Liquibase is mostly compable with CockroachDB.</p>
+<p>However, there are quite a few notable exceptions to this compatibility, and they arise when Keycloak&apos;s &quot;normal&quot; database changelogs are used. To correct the problem, a new set of changelogs specifically for CockroachDB are generated, mostely using the <code>ChangeLogEditor</code> - a java tool developped specifcally for this purpose.</p>
+<p>The following subsections list the incompatibilities between the Keycloak changelogs and CockroachDB, and the modifications made.</p>
+<h4 id="adding-primary-keys">Adding primary keys</h4>
+<p>In CockroachDB primary keys must be created with the tables and cannot be manipulated afterwards, but in the Keycloak changelogs the operation is always seperate. To correct this, the syntax is modified to group the creation of primary keys in the create table instruction.</p>
+<p>However, in a few cases (about 8), &quot;primary columns&quot; are removed, and a new key is added. Since the table generation is in another file, in this case:</p>
+<ol>
+<li>A new table is created with the correct structure</li>
+<li>The contents are copied from the old table to the new table</li>
+<li>The old table is dropped</li>
+<li>The new table is renamed to the correct table name. </li>
+</ol>
+<h4 id="adding-foreign-keys">Adding foreign keys</h4>
+<p>Foreign keys can be added and removed without problem in CockroachDB, however the column(s) MUST have a index defined on it. The solution creates indexes on all columns in a new changelog (to avoid precedence problems), and moves all &quot;add foreign keys&quot; to a third column (for the same reason.</p>
+<h4 id="removing-unique-constraints">Removing unique constraints</h4>
+<p>In CockroachDB altering a table to add a unique constraint in fact creates a unique index, and adds an entry to the list of constraints. And in fact creating a unique index does exactly the same thing, meaning that the two are interchangable. However, while it is possible to drop a unique index (which also drops the contraint), the CockRoachDB does not allow the syntax to drop the constraint. </p>
+<p>The modification changes all instances of &quot;drop unique constraint&quot; to &quot;drop uinique index&quot;.</p>
+<h4 id="activities-that-must-or-should-be-done">Activities that must or should be done</h4>
+<p>This TODO list can be editied as the following tasks are resolved:</p>
+<ul>
+<li>Only create indexes for foreign keys when one does not already exist</li>
+<li>Remove indexes created for foreign keys when they are removed</li>
+<li>Push a modification to CockroachDB to ensure that &quot;remove unique contraint&quot; acts like &quot;remove unique index&quot;</li>
+</ul>
 
                                 
                                 </section>
@@ -605,12 +532,12 @@ Note that the redis logs are formatted in <a href="https://www.elastic.co/produc
 
             
                 
-                <a href="testing.html" class="navigation navigation-prev " aria-label="Previous page: Testing with mocks">
+                <a href="sentry.html" class="navigation navigation-prev " aria-label="Previous page: Sentry integration">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="instrumenting.html" class="navigation navigation-next " aria-label="Next page: Instrumenting">
+                <a href="protocol.html" class="navigation navigation-next " aria-label="Next page: Protocol">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -621,7 +548,7 @@ Note that the redis logs are formatted in <a href="https://www.elastic.co/produc
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Logging","level":"1.4.4","depth":2,"next":{"title":"Instrumenting","level":"1.4.5","depth":2,"path":"chapter-godevel/instrumenting.md","ref":"chapter-godevel/instrumenting.md","articles":[]},"previous":{"title":"Testing with mocks","level":"1.4.3","depth":2,"path":"chapter-godevel/testing.md","ref":"chapter-godevel/testing.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["richquotes"],"pluginsConfig":{"richquotes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-godevel/logging.md","mtime":"2018-03-21T15:18:31.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-21T15:18:49.986Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Storage","level":"1.2.2","depth":2,"next":{"title":"Protocol","level":"1.2.3","depth":2,"path":"chapter-keycloak/protocol.md","ref":"chapter-keycloak/protocol.md","articles":[]},"previous":{"title":"Sentry integration","level":"1.2.1","depth":2,"path":"chapter-keycloak/sentry.md","ref":"chapter-keycloak/sentry.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["richquotes"],"pluginsConfig":{"richquotes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-keycloak/storage.md","mtime":"2018-03-21T13:32:57.263Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-21T15:18:49.986Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

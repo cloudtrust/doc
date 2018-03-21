@@ -1,13 +1,10 @@
 # Summary
 
 * [Introduction](README.md)
-* [Keycloak Sentry integration](chapter-sentry/README.md)
-* [Keycloak Storage](chapter-storage/README.md)
-     * [Creating the database structure in Keycloak](chapter-storage/create_database.md)
-     * [CockroachDB](chapter-storage/cockroachdb.md)
-* [Keycloak Protocol](chapter-protocol/README.md)
-    * [General principals](chapter-protocol/general_principals.md)
-    * [Implementation of WS-FED](chapter-protocol/ws-fed.md)
+* [Keycloak Development]
+    * [Sentry integration](chapter-keycloak/sentry.md)
+    * [Storage](chapter-keycloak/storage.md)
+    * [Protocol](chapter-keycloak/protocol.md)
 
 * [Deployment](chapter-deploy/README.md)
     * [Introduction](chapter-deploy/Introduction.md)
@@ -18,7 +15,8 @@
     * [Configurations](chapter-deploy/Configs.md)
     * [Telepresence](chapter-deploy/Telepresence.md)
 
-* [Go Development](chapter-godevel/README.md)
+* [Go Development]
+    * [Guidelines](chapter-godevel/guideline.md)
     * [Repository Structure](chapter-godevel/structure.md)
     * [Testing with mocks](chapter-godevel/testing.md)
     * [Logging](chapter-godevel/logging.md)
@@ -28,4 +26,3 @@
     * [Health routes](chapter-godevel/health_route.md)
     * [Debugging](chapter-godevel/debugging.md)
     * [Middlewares](chapter-godevel/middleware.md)
-
