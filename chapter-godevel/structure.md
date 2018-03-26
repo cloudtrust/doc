@@ -1,8 +1,8 @@
 # Repository structure
 
-The Cloudtrust go git repositories follow the structure recommended by the [go best practices](https://peter.bourgon.org/go-best-practices-2016/#repository-structure). For a microservice, it will look like:
+The Cloudtrust go git repositories follow the structure recommended by the [golang-standards](https://github.com/golang-standards/project-layout). For one of our microservice, it will look like:
 
-```
+```bash
 github.com/cloudtrust/<repo>/
 .
 ├── .gitignore
@@ -12,22 +12,23 @@ github.com/cloudtrust/<repo>/
 ├── LICENSE
 ├── README.md
 ├── doc.go                  // There must be a go file at repository root, otherwise go get complains.
-├── script               
-│   └── build.sh            // Build script
-├── bin         
-│   └── <name>              // Executable produced by build.sh 
+├── api
+│   └── *.fbs               // Flatbuffers schemas,...
+├── bin
+│   └── <name>              // Executable produced by build.sh
 ├── cmd
-│   ├── <name>.go           // main.go
-│   └── <name>_test.go
-├── conf                    // Configuration files
-│   └── DEV
-│       └── <name>.yml
+│   └── <name>.go           // main: the executable will be named <name>
+├── configs
+│   └── <name>.yml          // Configuration files
+├── examples
+│   └── ...                 // Examples
+├── internal
+│   └── <name>              // Private application and library code
+│       └── ...
+├── scripts
+│   └── build.sh            // Build script
 └── pkg
     ├── <name>
-    │   ├── flatbuffer      // Flatbuffers
-    │   │   ├── fb
-    │   │   │   └── ...
-    │   │   └── <name>.fbs
     │   ├── mock            // Auto generated mocks (see section test)
     │   │   └── ...
     │   └── ...

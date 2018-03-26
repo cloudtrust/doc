@@ -469,8 +469,8 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="repository-structure">Repository structure</h1>
-<p>The Cloudtrust go git repositories follow the structure recommended by the <a href="https://peter.bourgon.org/go-best-practices-2016/#repository-structure" target="_blank">go best practices</a>. For a microservice, it will look like:</p>
-<pre><code>github.com/cloudtrust/&lt;repo&gt;/
+<p>The Cloudtrust go git repositories follow the structure recommended by the <a href="https://github.com/golang-standards/project-layout" target="_blank">golang-standards</a>. For one of our microservice, it will look like:</p>
+<pre><code class="lang-bash">github.com/cloudtrust/&lt;repo&gt;/
 .
 &#x251C;&#x2500;&#x2500; .gitignore
 &#x251C;&#x2500;&#x2500; .travis.yml             // Configuration of the travis CI
@@ -479,23 +479,24 @@
 &#x251C;&#x2500;&#x2500; LICENSE
 &#x251C;&#x2500;&#x2500; README.md
 &#x251C;&#x2500;&#x2500; doc.go                  // There must be a go file at repository root, otherwise go get complains.
-&#x251C;&#x2500;&#x2500; script               
-&#x2502;   &#x2514;&#x2500;&#x2500; build.sh            // Build script
-&#x251C;&#x2500;&#x2500; bin         
-&#x2502;   &#x2514;&#x2500;&#x2500; &lt;name&gt;              // Executable produced by build.sh 
+&#x251C;&#x2500;&#x2500; api
+&#x2502;   &#x2514;&#x2500;&#x2500; *.fbs               // Flatbuffers schemas,...
+&#x251C;&#x2500;&#x2500; bin
+&#x2502;   &#x2514;&#x2500;&#x2500; &lt;name&gt;              // Executable produced by build.sh
 &#x251C;&#x2500;&#x2500; cmd
-&#x2502;   &#x251C;&#x2500;&#x2500; &lt;name&gt;.go           // main.go
-&#x2502;   &#x2514;&#x2500;&#x2500; &lt;name&gt;_test.go
-&#x251C;&#x2500;&#x2500; conf                    // Configuration files
-&#x2502;   &#x2514;&#x2500;&#x2500; DEV
-&#x2502;       &#x2514;&#x2500;&#x2500; &lt;name&gt;.yml
+&#x2502;   &#x2514;&#x2500;&#x2500; &lt;name&gt;.go           // main: the executable will be named &lt;name&gt;
+&#x251C;&#x2500;&#x2500; configs
+&#x2502;   &#x2514;&#x2500;&#x2500; &lt;name&gt;.yml          // Configuration files
+&#x251C;&#x2500;&#x2500; examples
+&#x2502;   &#x2514;&#x2500;&#x2500; ...                 // Examples
+&#x251C;&#x2500;&#x2500; internal
+&#x2502;   &#x2514;&#x2500;&#x2500; &lt;name&gt;              // Private application and library code
+&#x2502;       &#x2514;&#x2500;&#x2500; ...
+&#x251C;&#x2500;&#x2500; scripts
+&#x2502;   &#x2514;&#x2500;&#x2500; build.sh            // Build script
 &#x2514;&#x2500;&#x2500; pkg
     &#x251C;&#x2500;&#x2500; &lt;name&gt;
-    &#x2502;   &#x251C;&#x2500;&#x2500; flatbuffer      // Flatbuffers
-    &#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; fb
-    &#x2502;   &#x2502;   &#x2502;   &#x2514;&#x2500;&#x2500; ...
-    &#x2502;   &#x2502;   &#x2514;&#x2500;&#x2500; &lt;name&gt;.fbs
-    &#x2502;   &#x251C;&#x2500;&#x2500; mock            // Auto generated mocks (see section test)
+    &#x2502;   &#x251C;&#x2500;&#x2500; mock            // Auto generated mocks (see section <span class="hljs-built_in">test</span>)
     &#x2502;   &#x2502;   &#x2514;&#x2500;&#x2500; ...
     &#x2502;   &#x2514;&#x2500;&#x2500; ...
     &#x251C;&#x2500;&#x2500; health              // Health checks
@@ -508,6 +509,7 @@
         &#x2514;&#x2500;&#x2500; mock
             &#x2514;&#x2500;&#x2500; ...
 </code></pre>
+
                                 
                                 </section>
                             
@@ -550,7 +552,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Repository Structure","level":"1.4.2","depth":2,"next":{"title":"Testing with mocks","level":"1.4.3","depth":2,"path":"chapter-godevel/testing.md","ref":"chapter-godevel/testing.md","articles":[]},"previous":{"title":"Guidelines","level":"1.4.1","depth":2,"path":"chapter-godevel/guideline.md","ref":"chapter-godevel/guideline.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["richquotes"],"pluginsConfig":{"richquotes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-godevel/structure.md","mtime":"2018-02-23T06:30:24.069Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-21T15:22:42.420Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Repository Structure","level":"1.4.2","depth":2,"next":{"title":"Testing with mocks","level":"1.4.3","depth":2,"path":"chapter-godevel/testing.md","ref":"chapter-godevel/testing.md","articles":[]},"previous":{"title":"Guidelines","level":"1.4.1","depth":2,"path":"chapter-godevel/guideline.md","ref":"chapter-godevel/guideline.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["richquotes"],"pluginsConfig":{"richquotes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-godevel/structure.md","mtime":"2018-03-26T09:14:32.039Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-26T09:15:49.681Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
