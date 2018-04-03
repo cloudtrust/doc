@@ -17,10 +17,10 @@ We recommand VS Code (<https://code.visualstudio.com/docs/setup/linux>), but you
 
 ## Cloudtrust naming conventions
 
-* Logs: xxx_xxx (lowercase, separated with "_")
+* Logs: xxx\_xxx (lowercase, separated with "\_")
 * Flags: xxx-xxx (lowercase, separated with "-")
 * Config: xxx-xxx (lowercase, separated with "-")
-* Packages import: xxx_xxx (lowercase, separated with "_")
+* Packages import: xxx\_xxx (lowercase, separated with "\_")
 * Variables: See Go naming conventions below.
 
 In Cloudtrust, we use structured logging with the go-kit logger. All messages are key/value oriented.
