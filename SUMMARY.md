@@ -6,6 +6,7 @@
     * [Storage](chapter-keycloak/storage.md)
     * [Protocol](chapter-keycloak/protocol.md)
 
+
 * Deployment
     * [Introduction](chapter-deploy/Introduction.md)
     * [Docker](chapter-deploy/Docker.md)
@@ -14,6 +15,8 @@
     * [Ansible](chapter-deploy/Ansible.md)
     * [Configurations](chapter-deploy/Configs.md)
     * [Telepresence](chapter-deploy/Telepresence.md)
+    * [Deployment procedure](chapter-deploy/Deployment_Procedure_Cluster.md)
+
 
 * Go Development
     * [Guidelines](chapter-godevel/guideline.md)
