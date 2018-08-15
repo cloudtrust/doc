@@ -511,8 +511,8 @@ As such, it is best to view this work with a critical eye, and try to improve up
 </code></pre><h2 id="installation">Installation</h2>
 <p>We will use 2 Git repositories:</p>
 <ul>
-<li>The <code>on-premise-runtime</code> repository contains generic Ansible scripts.
-This repository is hosted on GitHub, at <a href="https://github.com/cloudtrust/on-premise-runtime" target="_blank">https://github.com/cloudtrust/on-premise-runtime</a></li>
+<li>The <code>runtime</code> repository contains generic Ansible scripts.
+This repository is hosted on GitHub, at <a href="https://github.com/cloudtrust/runtime" target="_blank">https://github.com/cloudtrust/runtime</a></li>
 <li>Another repository contains the configuration files, secrets and certificates required to install the Cloudtrust components on the cluster nodes.
 The reference repository is the <code>dev-config</code> repository, hosted at <a href="https://github.com/cloudtrust/dev-config" target="_blank">https://github.com/cloudtrust/dev-config</a>.
 You must create a new repository with your own configuration based on this reference repository.</li>
@@ -648,9 +648,9 @@ domain: cloudtrust.io
 <li>Grafana</li>
 </ul>
 <p>The mandatory business components are PostgreSQL and Keycloak.</p>
-<p>Clone the <code>on-premise-runtime</code> repository:</p>
-<pre><code>git clone https://github.com/cloudtrust/on-premise-runtime.git
-cd on-premise-runtime
+<p>Clone the <code>runtime</code> repository:</p>
+<pre><code>git clone https://github.com/cloudtrust/runtime.git
+cd runtime
 </code></pre><p>Install the required components in a python virtual environment called <code>venv</code>:</p>
 <pre><code>dnf install libselinux-python python2-virtualenv
 virtualenv-2 --system-site-packages venv
@@ -663,7 +663,7 @@ It must contain the following entries:</p>
 config_repo_name: dev
 config_git_tag: master
 </code></pre><p>Configure the project.
-This step initializes the <code>on-premise-runtime</code> project with the settings defined in the configuration repository.</p>
+This step initializes the <code>runtime</code> project with the settings defined in the configuration repository.</p>
 <pre><code>ansible-playbook config.yml --extra-vars &quot;vars_file=&lt;env&gt;-cluster-vars.yml&quot; -t deploy
 </code></pre><p>Copy your ssh key to each node:</p>
 <pre><code>ssh-copy-id root@&lt;node-ip&gt;
@@ -711,7 +711,7 @@ ens4: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
 </code></pre><p>Before deploying Ceph, the docker image <code>cloudtrust-baseimage</code> must be built.
 This may take a few minutes, due to running <code>dnf update &amp;&amp; dnf install ...</code> in the image.
 You will need to specify the path to the python virtual environment in the ansible variable <code>ansible_python_interpreter</code>, such as:</p>
-<pre><code>ansible-playbook baseimage.yml -i inventories/local.ini -e &quot;ansible_python_interpreter=/home/laurent/Desktop/CloudTrust/on-premise-runtime/venv/bin/python&quot;
+<pre><code>ansible-playbook baseimage.yml -i inventories/local.ini -e &quot;ansible_python_interpreter=/home/laurent/Desktop/CloudTrust/runtime/venv/bin/python&quot;
 </code></pre><p>If everything succeeds, you should see a result like this when you list docker images:</p>
 <pre><code>[root@admin]# docker images
 REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE
@@ -842,7 +842,7 @@ dnf clean all
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Deployment procedure","level":"2.1.8","depth":2,"next":{"title":"Go Development","level":"3.1","depth":1,"ref":"","articles":[{"title":"Guidelines","level":"3.1.1","depth":2,"path":"chapter-godevel/guideline.md","ref":"chapter-godevel/guideline.md","articles":[]},{"title":"Repository Structure","level":"3.1.2","depth":2,"path":"chapter-godevel/structure.md","ref":"chapter-godevel/structure.md","articles":[]},{"title":"Testing with mocks","level":"3.1.3","depth":2,"path":"chapter-godevel/testing.md","ref":"chapter-godevel/testing.md","articles":[]},{"title":"Logging","level":"3.1.4","depth":2,"path":"chapter-godevel/logging.md","ref":"chapter-godevel/logging.md","articles":[]},{"title":"Instrumenting","level":"3.1.5","depth":2,"path":"chapter-godevel/instrumenting.md","ref":"chapter-godevel/instrumenting.md","articles":[]},{"title":"Tracing","level":"3.1.6","depth":2,"path":"chapter-godevel/tracing.md","ref":"chapter-godevel/tracing.md","articles":[]},{"title":"Tracking","level":"3.1.7","depth":2,"path":"chapter-godevel/tracking.md","ref":"chapter-godevel/tracking.md","articles":[]},{"title":"Health routes","level":"3.1.8","depth":2,"path":"chapter-godevel/health_route.md","ref":"chapter-godevel/health_route.md","articles":[]},{"title":"Debugging","level":"3.1.9","depth":2,"path":"chapter-godevel/debugging.md","ref":"chapter-godevel/debugging.md","articles":[]},{"title":"Middlewares","level":"3.1.10","depth":2,"path":"chapter-godevel/middleware.md","ref":"chapter-godevel/middleware.md","articles":[]}]},"previous":{"title":"Telepresence","level":"2.1.7","depth":2,"path":"chapter-deploy/Telepresence.md","ref":"chapter-deploy/Telepresence.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["richquotes"],"pluginsConfig":{"richquotes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-deploy/Deployment_Procedure_Cluster.md","mtime":"2018-08-15T07:19:32.250Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-15T07:24:22.136Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Deployment procedure","level":"2.1.8","depth":2,"next":{"title":"Go Development","level":"3.1","depth":1,"ref":"","articles":[{"title":"Guidelines","level":"3.1.1","depth":2,"path":"chapter-godevel/guideline.md","ref":"chapter-godevel/guideline.md","articles":[]},{"title":"Repository Structure","level":"3.1.2","depth":2,"path":"chapter-godevel/structure.md","ref":"chapter-godevel/structure.md","articles":[]},{"title":"Testing with mocks","level":"3.1.3","depth":2,"path":"chapter-godevel/testing.md","ref":"chapter-godevel/testing.md","articles":[]},{"title":"Logging","level":"3.1.4","depth":2,"path":"chapter-godevel/logging.md","ref":"chapter-godevel/logging.md","articles":[]},{"title":"Instrumenting","level":"3.1.5","depth":2,"path":"chapter-godevel/instrumenting.md","ref":"chapter-godevel/instrumenting.md","articles":[]},{"title":"Tracing","level":"3.1.6","depth":2,"path":"chapter-godevel/tracing.md","ref":"chapter-godevel/tracing.md","articles":[]},{"title":"Tracking","level":"3.1.7","depth":2,"path":"chapter-godevel/tracking.md","ref":"chapter-godevel/tracking.md","articles":[]},{"title":"Health routes","level":"3.1.8","depth":2,"path":"chapter-godevel/health_route.md","ref":"chapter-godevel/health_route.md","articles":[]},{"title":"Debugging","level":"3.1.9","depth":2,"path":"chapter-godevel/debugging.md","ref":"chapter-godevel/debugging.md","articles":[]},{"title":"Middlewares","level":"3.1.10","depth":2,"path":"chapter-godevel/middleware.md","ref":"chapter-godevel/middleware.md","articles":[]}]},"previous":{"title":"Telepresence","level":"2.1.7","depth":2,"path":"chapter-deploy/Telepresence.md","ref":"chapter-deploy/Telepresence.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["richquotes"],"pluginsConfig":{"richquotes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-deploy/Deployment_Procedure_Cluster.md","mtime":"2018-08-15T09:09:12.040Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-15T09:24:46.558Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

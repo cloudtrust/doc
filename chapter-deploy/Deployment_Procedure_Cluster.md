@@ -26,8 +26,8 @@ Install the `Container Management` environment on your own machine:
 ## Installation
 
 We will use 2 Git repositories:
-- The `on-premise-runtime` repository contains generic Ansible scripts.
-This repository is hosted on GitHub, at https://github.com/cloudtrust/on-premise-runtime
+- The `runtime` repository contains generic Ansible scripts.
+This repository is hosted on GitHub, at https://github.com/cloudtrust/runtime
 - Another repository contains the configuration files, secrets and certificates required to install the Cloudtrust components on the cluster nodes.
 The reference repository is the `dev-config` repository, hosted at https://github.com/cloudtrust/dev-config.
 You must create a new repository with your own configuration based on this reference repository.
@@ -194,10 +194,10 @@ Business components:
 
 The mandatory business components are PostgreSQL and Keycloak.
 
-Clone the `on-premise-runtime` repository:
+Clone the `runtime` repository:
 
-    git clone https://github.com/cloudtrust/on-premise-runtime.git
-    cd on-premise-runtime
+    git clone https://github.com/cloudtrust/runtime.git
+    cd runtime
 
 Install the required components in a python virtual environment called `venv`:
 
@@ -215,7 +215,7 @@ It must contain the following entries:
     config_git_tag: master
 
 Configure the project.
-This step initializes the `on-premise-runtime` project with the settings defined in the configuration repository.
+This step initializes the `runtime` project with the settings defined in the configuration repository.
 
     ansible-playbook config.yml --extra-vars "vars_file=<env>-cluster-vars.yml" -t deploy
 
@@ -275,7 +275,7 @@ Before deploying Ceph, the docker image `cloudtrust-baseimage` must be built.
 This may take a few minutes, due to running `dnf update && dnf install ...` in the image.
 You will need to specify the path to the python virtual environment in the ansible variable `ansible_python_interpreter`, such as:
 
-    ansible-playbook baseimage.yml -i inventories/local.ini -e "ansible_python_interpreter=/home/laurent/Desktop/CloudTrust/on-premise-runtime/venv/bin/python"
+    ansible-playbook baseimage.yml -i inventories/local.ini -e "ansible_python_interpreter=/home/laurent/Desktop/CloudTrust/runtime/venv/bin/python"
 
 If everything succeeds, you should see a result like this when you list docker images:
 
