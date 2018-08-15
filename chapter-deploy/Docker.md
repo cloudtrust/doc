@@ -35,6 +35,4 @@ Systemd is a widely used Linux init system. It expects to be running as PID 1 an
  - /sys/fs/cgroup is mounted and is readable
 Docker run commands need to have the following flags : `--tmpfs /tmp`, `--tmpfs /run` and `-v /sys/fs/cgroup:/sys/fs/cgroup:ro`.
 
-Furthermore, since systemd attempts to read cgroups, selinux needs to let that happen. So the selinux boolean `container_manage_cgroup` needs to be set to true:
-
-    setsebool container_manage_cgroup on
+Furthermore, since systemd attempts to read cgroups, selinux needs to let that happen. So the selinux boolean `container_manage_cgroups` needs to be set to true

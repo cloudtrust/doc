@@ -1,30 +1,39 @@
-# CloudTrust
+# doc
 
-## To start using CloudTrust
+Cloud trust documentation
 
-Search our documentation on [cloudtrust.io](http://cloudtrust.io/doc/)
+# install the plugins and build the static site
+npm install -g gitbook-cli
 
-Read the [deployment guide](chapter-deploy/Deployment_Procedure_Cluster.md)
+# Install tools you need
+gitbook install
 
-## To modify this documentation
+# Do your struff
 
-Clone the repository:
+# Build
+gitbook build
 
-    git clone -b gh-pages https://github.com/cloudtrust/doc.git
+# checkout to the gh-pages branch
+git checkout gh-pages
 
-Install the gitbook plugin:
+# pull the latest updates
+git pull origin gh-pages --rebase
 
-    npm install -g gitbook-cli
-    gitbook install
+# copy the static site files into the current directory.
+cp -R _book/* .
 
-Do your modifications.
+# remove 'node_modules' and '_book' directory
+git clean -fx node_modules
+git clean -fx _book
 
-Build the documentation:
+# add all files
+git add .
 
-    gitbook build
+# commit
+git commit -a -m "Update docs"
 
-Copy the static site files into the current directory.
+# push to the origin
+git push origin gh-pages
 
-    cp -R _book/* .
-
-Commit your changes and do a pull request.
+# checkout to the master branch
+git checkout master
