@@ -6,17 +6,47 @@ Disclaimer: The whole deployment procedure was written by a single engineer new 
 This was done on a best-effort basis, but lacks any sort of rigorous review by an experienced engineer.
 As such, it is best to view this work with a critical eye, and try to improve upon it, even refactoring it deeply, if it is judged adequate.
 
-## Minimal hardware requirements
+### Minimal hardware requirements
 - CPU: 4 vCPU
 - RAM: 16 GiB
 - Disk: 100 GiB
 
-These requirements are for the deployment of the Cloudtrust solution with all the components.
+These requirements are for a deployment of the Cloudtrust solution with all the components.
+If you do not deploy all the components, you may be able to reduce the requirements.
 
-One cluster requires at least 3 VMs.
+One cluster requires at least 3 VMs running Fedora.
 
+### Software versions
 
-## Prerequisites
+The policy of the Cloudtrust project concerning versions of software components is to always target the latest stable releases.
+
+In August 2018, we are currently using:
+
+- Fedora 28
+- Ansible 2.6.2
+- Flannel 0.9.0
+- Docker 1.13.1
+- Kubernetes 1.10.1
+- Ceph 12.2.7
+- PostgreSQL 9.6.9
+- Elasticsearch 1.7.1
+- Logstash 6.3.2
+- InfluxDB 1.6.1
+- Redis 4.0.10
+- Kibana 6.3.2
+- Jaeger
+- Flaki
+- Sentry 8.21.0
+- Keycloak 3.4.3
+- Grafana 5.2.2
+
+Note that versions will most likely change in the future.
+The versions indicated here are just an indication.
+
+### Prerequisites
+
+The cluster nodes must run the latest stable version of Fedora.
+This deployment procedure also assumes that you have a machine running Fedora.
 
 Install the `Container Management` environment on your own machine:
 
@@ -54,6 +84,15 @@ In the file `deployable/inventories/main.ini`, specify the IP addresses of your 
     [kube-slave]
     <ip1>
     <ip2>
+
+If your machines have more than one network interface, you must specify the interface that Kubernetes should bind to in the file `deployable/group_vars/all.yml`.
+In the following example, we use `ens4`, which is the interface connected to our private network :
+
+    [root@admin]# cat group_vars/all.yml
+    ---
+    default_interface: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['interface'] }}"
+    interface: "ens4"
+    ...
 
 In the directory `deployable/roles/baseimage/keys/`, there are two files `id_ssh` and `id_ssh.pub`.
 You need to specify an SSH key which gives access to a Github account.
@@ -228,6 +267,11 @@ This ensures that the network configuration will be correctly set on each node.
 
     ansible-playbook resolver.yml -i inventories/main.ini
 
+The following Ansible module is required by some of the playbooks. It must be installed under `runtime/library/`:
+
+    mkdir library
+    curl https://raw.githubusercontent.com/jparrill/ansible-module-etcd/master/library/etcd.py > library/etcd.py
+
 Deploy Kubernetes:
 
     ansible-playbook kubernetes.yml -i inventories/main.ini
@@ -369,10 +413,22 @@ Deploy grafana:
 
     ansible-playbook grafana.yml -i inventories/main.ini
 
-** TODO [LVA] ** Describe service tests
+### Tests
 
+Most of the components can be automatically tested with Python scripts.
+The tests scripts for a component are available in the repository named `<component>-tools`.
+The tests are usually divided into the following independent parts:
+1. `test_<component>_container.py`: This script unit tests the components and tools installed in a container.
+  For example, it verifies if systemd is running monit, if each agent is automatically restarted after it is stopped, if there are errors in the logs or if the status of the container is `Running`.
+2. `test_<component>_service.py`: This script serves as an integration test of the component.
+  It tests business features, like if it is possible to create a table in a database or if it can insert new data into it.
 
-# Troubleshooting
+Additionaly, the tools repository of Flaki and Keycloak also contain functionality tests.
+These scripts validates that multiple components are correctly connected together. For example, it may test that an action performed in Flaki is recorded within Influx, Cassandra and Jaeger.
+
+Finally, the `acceptance-tool` repository contains business tests for the Cloudtrust solution.
+
+### Troubleshooting
 
 - When building docker images, you may encounter an error with `rpmdb`, like this:
 

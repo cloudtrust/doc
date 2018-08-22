@@ -497,15 +497,42 @@
 <p>This document explains how to deploy the CloudTrust components on a cluster.</p>
 <p>Disclaimer: The whole deployment procedure was written by a single engineer new to this whole ecosystem, using many different conflicting open-source resources as inspiration.<br>This was done on a best-effort basis, but lacks any sort of rigorous review by an experienced engineer.
 As such, it is best to view this work with a critical eye, and try to improve upon it, even refactoring it deeply, if it is judged adequate.</p>
-<h2 id="minimal-hardware-requirements">Minimal hardware requirements</h2>
+<h3 id="minimal-hardware-requirements">Minimal hardware requirements</h3>
 <ul>
 <li>CPU: 4 vCPU</li>
 <li>RAM: 16 GiB</li>
 <li>Disk: 100 GiB</li>
 </ul>
-<p>These requirements are for the deployment of the Cloudtrust solution with all the components.</p>
-<p>One cluster requires at least 3 VMs.</p>
-<h2 id="prerequisites">Prerequisites</h2>
+<p>These requirements are for a deployment of the Cloudtrust solution with all the components.
+If you do not deploy all the components, you may be able to reduce the requirements.</p>
+<p>One cluster requires at least 3 VMs running Fedora.</p>
+<h3 id="software-versions">Software versions</h3>
+<p>The policy of the Cloudtrust project concerning versions of software components is to always target the latest stable releases.</p>
+<p>In August 2018, we are currently using:</p>
+<ul>
+<li>Fedora 28</li>
+<li>Ansible 2.6.2</li>
+<li>Flannel 0.9.0</li>
+<li>Docker 1.13.1</li>
+<li>Kubernetes 1.10.1</li>
+<li>Ceph 12.2.7</li>
+<li>PostgreSQL 9.6.9</li>
+<li>Elasticsearch 1.7.1</li>
+<li>Logstash 6.3.2</li>
+<li>InfluxDB 1.6.1</li>
+<li>Redis 4.0.10</li>
+<li>Kibana 6.3.2</li>
+<li>Jaeger</li>
+<li>Flaki</li>
+<li>Sentry 8.21.0</li>
+<li>Keycloak 3.4.3</li>
+<li>Grafana 5.2.2</li>
+</ul>
+<p>Note that versions will most likely change in the future.
+The versions indicated here are just an indication.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>The cluster nodes must run the latest stable version of Fedora.
+This deployment procedure also assumes that you have a machine running Fedora.</p>
 <p>Install the <code>Container Management</code> environment on your own machine:</p>
 <pre><code>dnf install @&apos;Container Management&apos;
 </code></pre><h2 id="installation">Installation</h2>
@@ -533,6 +560,13 @@ kube-master
 [kube-slave]
 &lt;ip1&gt;
 &lt;ip2&gt;
+</code></pre><p>If your machines have more than one network interface, you must specify the interface that Kubernetes should bind to in the file <code>deployable/group_vars/all.yml</code>.
+In the following example, we use <code>ens4</code>, which is the interface connected to our private network :</p>
+<pre><code>[root@admin]# cat group_vars/all.yml
+---
+default_interface: &quot;&quot;
+interface: &quot;ens4&quot;
+...
 </code></pre><p>In the directory <code>deployable/roles/baseimage/keys/</code>, there are two files <code>id_ssh</code> and <code>id_ssh.pub</code>.
 You need to specify an SSH key which gives access to a Github account.
 This will be used to clone the cloudtrust repositories when building docker images.<br>Note that for ELCA&apos;s deployments, we already have a service account setup in Github.
@@ -670,6 +704,9 @@ This step initializes the <code>runtime</code> project with the settings defined
 </code></pre><p>Run the resolver playbook.
 This ensures that the network configuration will be correctly set on each node.</p>
 <pre><code>ansible-playbook resolver.yml -i inventories/main.ini
+</code></pre><p>The following Ansible module is required by some of the playbooks. It must be installed under <code>runtime/library/</code>:</p>
+<pre><code>mkdir library
+curl https://raw.githubusercontent.com/jparrill/ansible-module-etcd/master/library/etcd.py &gt; library/etcd.py
 </code></pre><p>Deploy Kubernetes:</p>
 <pre><code>ansible-playbook kubernetes.yml -i inventories/main.ini
 </code></pre><p>At this point, you can perform a few quick tests by logging on one of the node:</p>
@@ -763,8 +800,20 @@ psql -h postgresql -U postgres
 <pre><code>ansible-playbook keycloak.yml -i inventories/main.ini
 </code></pre><p>Deploy grafana:</p>
 <pre><code>ansible-playbook grafana.yml -i inventories/main.ini
-</code></pre><p><strong> TODO [LVA] </strong> Describe service tests</p>
-<h1 id="troubleshooting">Troubleshooting</h1>
+</code></pre><h3 id="tests">Tests</h3>
+<p>Most of the components can be automatically tested with Python scripts.
+The tests scripts for a component are available in the repository named <code>&lt;component&gt;-tools</code>.
+The tests are usually divided into the following independent parts:</p>
+<ol>
+<li><code>test_&lt;component&gt;_container.py</code>: This script unit tests the components and tools installed in a container.
+For example, it verifies if systemd is running monit, if each agent is automatically restarted after it is stopped, if there are errors in the logs or if the status of the container is <code>Running</code>.</li>
+<li><code>test_&lt;component&gt;_service.py</code>: This script serves as an integration test of the component.
+It tests business features, like if it is possible to create a table in a database or if it can insert new data into it.</li>
+</ol>
+<p>Additionaly, the tools repository of Flaki and Keycloak also contain functionality tests.
+These scripts validates that multiple components are correctly connected together. For example, it may test that an action performed in Flaki is recorded within Influx, Cassandra and Jaeger.</p>
+<p>Finally, the <code>acceptance-tool</code> repository contains business tests for the Cloudtrust solution.</p>
+<h3 id="troubleshooting">Troubleshooting</h3>
 <ul>
 <li><p>When building docker images, you may encounter an error with <code>rpmdb</code>, like this:</p>
 <pre><code>error: rpmdb: BDB0689 Packages page 1399 is on free list with type 7
@@ -842,7 +891,7 @@ dnf clean all
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Deployment procedure","level":"2.1.8","depth":2,"next":{"title":"Go Development","level":"3.1","depth":1,"ref":"","articles":[{"title":"Guidelines","level":"3.1.1","depth":2,"path":"chapter-godevel/guideline.md","ref":"chapter-godevel/guideline.md","articles":[]},{"title":"Repository Structure","level":"3.1.2","depth":2,"path":"chapter-godevel/structure.md","ref":"chapter-godevel/structure.md","articles":[]},{"title":"Testing with mocks","level":"3.1.3","depth":2,"path":"chapter-godevel/testing.md","ref":"chapter-godevel/testing.md","articles":[]},{"title":"Logging","level":"3.1.4","depth":2,"path":"chapter-godevel/logging.md","ref":"chapter-godevel/logging.md","articles":[]},{"title":"Instrumenting","level":"3.1.5","depth":2,"path":"chapter-godevel/instrumenting.md","ref":"chapter-godevel/instrumenting.md","articles":[]},{"title":"Tracing","level":"3.1.6","depth":2,"path":"chapter-godevel/tracing.md","ref":"chapter-godevel/tracing.md","articles":[]},{"title":"Tracking","level":"3.1.7","depth":2,"path":"chapter-godevel/tracking.md","ref":"chapter-godevel/tracking.md","articles":[]},{"title":"Health routes","level":"3.1.8","depth":2,"path":"chapter-godevel/health_route.md","ref":"chapter-godevel/health_route.md","articles":[]},{"title":"Debugging","level":"3.1.9","depth":2,"path":"chapter-godevel/debugging.md","ref":"chapter-godevel/debugging.md","articles":[]},{"title":"Middlewares","level":"3.1.10","depth":2,"path":"chapter-godevel/middleware.md","ref":"chapter-godevel/middleware.md","articles":[]}]},"previous":{"title":"Telepresence","level":"2.1.7","depth":2,"path":"chapter-deploy/Telepresence.md","ref":"chapter-deploy/Telepresence.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["richquotes"],"pluginsConfig":{"richquotes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-deploy/Deployment_Procedure_Cluster.md","mtime":"2018-08-15T09:31:26.545Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-15T09:48:26.682Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Deployment procedure","level":"2.1.8","depth":2,"next":{"title":"Go Development","level":"3.1","depth":1,"ref":"","articles":[{"title":"Guidelines","level":"3.1.1","depth":2,"path":"chapter-godevel/guideline.md","ref":"chapter-godevel/guideline.md","articles":[]},{"title":"Repository Structure","level":"3.1.2","depth":2,"path":"chapter-godevel/structure.md","ref":"chapter-godevel/structure.md","articles":[]},{"title":"Testing with mocks","level":"3.1.3","depth":2,"path":"chapter-godevel/testing.md","ref":"chapter-godevel/testing.md","articles":[]},{"title":"Logging","level":"3.1.4","depth":2,"path":"chapter-godevel/logging.md","ref":"chapter-godevel/logging.md","articles":[]},{"title":"Instrumenting","level":"3.1.5","depth":2,"path":"chapter-godevel/instrumenting.md","ref":"chapter-godevel/instrumenting.md","articles":[]},{"title":"Tracing","level":"3.1.6","depth":2,"path":"chapter-godevel/tracing.md","ref":"chapter-godevel/tracing.md","articles":[]},{"title":"Tracking","level":"3.1.7","depth":2,"path":"chapter-godevel/tracking.md","ref":"chapter-godevel/tracking.md","articles":[]},{"title":"Health routes","level":"3.1.8","depth":2,"path":"chapter-godevel/health_route.md","ref":"chapter-godevel/health_route.md","articles":[]},{"title":"Debugging","level":"3.1.9","depth":2,"path":"chapter-godevel/debugging.md","ref":"chapter-godevel/debugging.md","articles":[]},{"title":"Middlewares","level":"3.1.10","depth":2,"path":"chapter-godevel/middleware.md","ref":"chapter-godevel/middleware.md","articles":[]}]},"previous":{"title":"Telepresence","level":"2.1.7","depth":2,"path":"chapter-deploy/Telepresence.md","ref":"chapter-deploy/Telepresence.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["richquotes"],"pluginsConfig":{"richquotes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-deploy/Deployment_Procedure_Cluster.md","mtime":"2018-08-22T10:19:56.571Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-22T10:22:37.622Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
