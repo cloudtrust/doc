@@ -377,6 +377,14 @@ Deploy Elasticsearch:
 
     ansible-playbook elasticsearch.yml -i inventories/main.ini
 
+The first time you deploy, you must change the user and group on the volume mounted in `/var/lib/elasticsearch`.
+Enter the container and change the owner:
+
+    ssh root@<node-ip>
+    kubectl exec -it elasticsearch-master-0 /bin/bash
+    # Change the user and group
+    chown elasticsearch:elasticsearch /var/lib/elasticsearch/
+
 Deploy Logstash:
 
     ansible-playbook logstash.yml -i inventories/main.ini
@@ -384,6 +392,14 @@ Deploy Logstash:
 Deploy Influx:
 
     ansible-playbook influx.yml -i inventories/main.ini
+
+The first time you deploy, you must change the user and group on the volume mounted in `/var/lib/influxdb`.
+Enter the container and change the owner:
+
+    ssh root@<node-ip>
+    kubectl exec -it influx-0 /bin/bash
+    # Change the user and group
+    chown influxdb:influxdb /var/lib/influxdb/
 
 Deploy Redis:
 
@@ -467,3 +483,8 @@ Finally, the `acceptance-tool` repository contains business tests for the Cloudt
          ...
 
   3. Re-execute the ansible playbook.
+
+- There is a known bug where a pod will stay in the `Terminating` state forever.
+  Running `docker kill <container>` hangs and fails to kill the container.
+  This is caused by a kernel race-condition in the way systemd handles the shutdown of processes which were waiting on an IO operation.
+  As of now, the only known workaround is to reboot the machine running the faulty container.
