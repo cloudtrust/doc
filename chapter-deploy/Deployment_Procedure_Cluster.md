@@ -267,11 +267,6 @@ This ensures that the network configuration will be correctly set on each node.
 
     ansible-playbook resolver.yml -i inventories/main.ini
 
-The following Ansible module is required by some of the playbooks. It must be installed under `runtime/library/`:
-
-    mkdir library
-    curl https://raw.githubusercontent.com/jparrill/ansible-module-etcd/master/library/etcd.py > library/etcd.py
-
 Deploy Kubernetes:
 
     ansible-playbook kubernetes.yml -i inventories/main.ini
@@ -488,3 +483,20 @@ Finally, the `acceptance-tool` repository contains business tests for the Cloudt
   Running `docker kill <container>` hangs and fails to kill the container.
   This is caused by a kernel race-condition in the way systemd handles the shutdown of processes which were waiting on an IO operation.
   As of now, the only known workaround is to reboot the machine running the faulty container.
+
+- In early prototypes of Cloudtrust, there was an issue where docker would not restart automatically after a reboot. This was caracterised by running:
+
+        kubectl get pods
+        # The connection to the server localhost:8080 was refused. Did you specify the right host and port?
+
+  It can be verified by checking the status of the kubelet service:
+
+        systemctl status kubelet
+        # ...
+        # Active: inactive (dead)
+
+  Restarting the kubelet service manually resolved this issue:
+
+        systemctl restart kubelet
+
+  The pods may take a few minutes to get back to the `Running` state.
